@@ -11,37 +11,40 @@
     if(isset($_POST["btnOK"])){
         $Name=$_POST["txtUserName"];
         $Password=$_POST["txtPassword"];
-        
-        
-        $sql="select * from member where name='$Name' and pwd='$Password'";
-        require("conn.php");
-
-        $result=mysqli_query($link,$sql);
-        $row=mysqli_fetch_assoc($result);
-        // var_dump($row);
-        
       
-        if($Name=$row['name'] and $Password=$row['pwd']){
+        
+        //member
+        $sql1="select * from member where name='$Name' and pwd='$Password'";
+        require("conn.php");
+        $result1=mysqli_query($link,$sql1);
+        $row1=mysqli_fetch_assoc($result1);
+
+        //manager
+        $sql2="select * from manager where mname='$Name' and mpwd='$Password'";
+        $result2=mysqli_query($link,$sql2);
+        $row2=mysqli_fetch_assoc($result2);
+        var_dump($row2);
+  
+      
+        if($Name=$row1['name'] and $Password=$row1['pwd']){
             //echo "111";
 
-            //manger
-            if($row['name']="box" and $row['pwd']="box"){
-                
-                $_SESSION["name"]=$Name;
-                header("location: manager.php");
-                exit();  
-
-
-            }else{
-                
                 //member
-                $_SESSION["name"]=$Name;
-                header("location: index.php");
-                exit();  
-            }
+            $_SESSION["name"]=$Name;
+            header("location: index.php");
+            exit();  
             
-        }else{
-            
+            //manger
+        }else if($Name=$row2['mname'] and $Password=$row2['mpwd']){
+            //echo "222222";
+            $_SESSION["name"]=$Name;
+            header("location: manager.php");
+            exit();  
+
+        }
+        else{
+            //echo "444";
+            //sign in
             header("location: sign.php");
             exit();
 
@@ -86,6 +89,8 @@
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" name="txtPassword" placeholder="Enter password" required="required">
             </div>
+
+            
 
             <div class="row" >
                 

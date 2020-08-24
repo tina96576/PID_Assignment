@@ -8,6 +8,7 @@ if(isset($_SESSION["name"])){
     $sname="Guest"; 
 }
 
+
 ?>
 
 
@@ -18,12 +19,13 @@ if(isset($_SESSION["name"])){
     <title>Lab</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_ok.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 
-
+    
     <nav class="navbar navbar-default">
+        <p style="text-align:right; position: relative; margin:5px;">Hello! <?= $sname;?> &nbsp &nbsp</p>
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -42,6 +44,7 @@ if(isset($_SESSION["name"])){
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
                     <li><a href="#">Link</a></li>
+                   
                     
                     <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -62,40 +65,33 @@ if(isset($_SESSION["name"])){
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
+
                 
                 <ul class="nav navbar-nav navbar-right">
-                <p> <?= $sname;?></p>
-                <?php if($sname=="Guest"):?>
-                   
+                    
+                    <?php if($sname=="Guest"):?>
                     <a href="login.php" class="btn btn-primary btn-lg" role="button">登入</a>
-                <?php else: ?>
+                    <?php else: ?>
                     <a href="login.php?logout=1" class="btn btn-warning btn-lg" role="button">登出</a>
-                <?php endif; ?>
-                    <a href="secret.php" class="btn btn-primary btn-lg" role="button">會員專用頁</a> 
-
+                    <?php endif; ?>
+                    <a href="secret.php" class="btn btn-primary btn-lg" role="button">會員專用頁</a>
+                    
                 </ul>
-
+                
                 
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
     
-    <!-- <div class="jumbotron">
-        <div class="container">
-            <h1>Hello, world!</h1>
-            <p>...</p>
-            <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
-        </div>
-    </div> -->
 
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3">
 
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Spring</h3>
+                        <h3 class="panel-title">產品類別</h3>
                     </div>
                     <div class="panel-body">
 
@@ -106,78 +102,60 @@ if(isset($_SESSION["name"])){
                             <li class="list-group-item">Spring Equinox 春分</li>
                             <li class="list-group-item">Pure Brightness 清明</li>
                             <li class="list-group-item">Grain Rain 穀雨</li>
+                            <li class="list-group-item">Beginning of Spring 立春</li>
+                            <li class="list-group-item">Rain Water 雨水</li>
+                            <li class="list-group-item">Waking of Insects 驚蟄</li>
+                            <li class="list-group-item">Spring Equinox 春分</li>
+                            <li class="list-group-item">Pure Brightness 清明</li>
+                            <li class="list-group-item">Grain Rain 穀雨</li>
                         </ul>
 
                     </div>
-                </div>    
-
+                </div>  
+                  
             </div>
 
-            <!-- <div class="col-sm-3">
+            <div class="col-sm-9">
 
-                <div class="panel panel-info">
+                <div class="panel panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Summer</h3>
+                        <h3 class="panel-title">產品</h3>
                     </div>
                     <div class="panel-body">
 
                         <ul class="list-group list-group">
-                            <li class="list-group-item">Beginning of Summer 立夏</li>
-                            <li class="list-group-item">Grain Full 小滿</li>
-                            <li class="list-group-item">Grain in Ear 芒種</li>
-                            <li class="list-group-item">Summer Solstice 夏至</li>
-                            <li class="list-group-item">Slight Heat 小暑</li>
-                            <li class="list-group-item">Great Heat 大暑</li>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="thumbnail">
+                                <a href="/w3images/lights.jpg">
+                                    <img src="/w3images/lights.jpg" alt="Lights" style="width:100%">
+                                    <div class="caption">
+                                    <p>Lorem ipsum...</p>
+                                    </div>
+                                </a>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="thumbnail">
+                                <a href="/w3images/lights.jpg">
+                                    <img src="/w3images/lights.jpg" alt="Lights" style="width:100%">
+                                    <div class="caption">
+                                    <p>Lorem ipsum...</p>
+                                    </div>
+                                </a>
+                                </div>
+                            </div>
+                            
+                        </div>
                         </ul>
 
                     </div>
-                </div>
-
-            </div> -->
-
-            <!-- <div class="col-sm-3">
-
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Autumn</h3>
-                    </div>
-                    <div class="panel-body">
-
-                        <ul class="list-group list-group">
-                            <li class="list-group-item">Beginning of Autumn 立秋</li>
-                            <li class="list-group-item">Limit of Heat 處暑</li>
-                            <li class="list-group-item">White Dew 白露</li>
-                            <li class="list-group-item">Autumnal Equinox 秋分</li>
-                            <li class="list-group-item">Cold Dew 寒露</li>
-                            <li class="list-group-item">Frost′s descent霜降</li>
-                        </ul>
-
-                    </div>
-                </div>
-
+                </div>  
+                  
             </div>
-
-            <div class="col-sm-3">
-
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Winter</h3>
-                    </div>
-                    <div class="panel-body">
-
-                        <ul class="list-group list-group">
-                            <li class="list-group-item">Beginning of Winter 立冬</li>
-                            <li class="list-group-item">Slight Snow 小雪</li>
-                            <li class="list-group-item">Great Snow 大雪</li>
-                            <li class="list-group-item">Winter Solstice 冬至</li>
-                            <li class="list-group-item">Slight Cold 小寒</li>
-                            <li class="list-group-item">Great Cold 大寒</li>
-                        </ul>
-
-                    </div>
-                </div>
-
-            </div> -->
+</div>  
+  
+</div>
 
 
         </div>
@@ -193,8 +171,7 @@ if(isset($_SESSION["name"])){
     </div>
 
 
-
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <img src="./image/candy/水果糖.jpeg" alt="Girl in a jacket" width="500" height="600">
+    
 </body>
 </html>

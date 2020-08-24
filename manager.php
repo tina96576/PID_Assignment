@@ -49,7 +49,12 @@
                  
                 <ul class="nav navbar-nav navbar-right">
                 <a href="login.php?logout=1" class="btn btn-warning btn-lg" role="button">登出</a>
+               
+                <a href="index.php" class="btn btn-primary btn-lg" role="button">回首頁</a>
+               
                 </ul>
+
+                
 
                 
             </div><!-- /.navbar-collapse -->
@@ -107,6 +112,8 @@
                 </div>
 
             </div>
+
+            
 
         </div>
     </div>

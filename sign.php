@@ -11,10 +11,13 @@
     if(isset($_POST["btnOK"])){
         $Name=$_POST["txtUserName"];
         $Password=$_POST["txtPassword"];
+        $Email=$_POST["txtEmail"];
+        
+
         $_SESSION["name"]=$Name;
   
         //echo $Name,$Password;
-        $sql="insert into member(name,pwd)values('$Name','$Password')";       
+        $sql="insert into member(name,pwd,email)values('$Name','$Password','$Email')";       
         //var_dump($sql);
     
         require("conn.php");
@@ -58,6 +61,11 @@
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" name="txtPassword" placeholder="Enter password" required="required">
+            </div>
+
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="text" class="form-control" name="txtEmail" placeholder="Enter Email" required="required">
             </div>
 
             <div class="row" >
