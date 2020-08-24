@@ -1,0 +1,59 @@
+create database broad default character set utf8;
+
+use broad;
+
+create table product
+
+
+create table product(
+    pid int auto_increment not null primary key,                                 
+    pname varchar(20),                                                           
+    categoryid int,
+    productprice int,
+    img varchar(255),
+    descript varchar(255),
+    pquity int
+    );
+
+insert into product values (1,'水果糖',1,100,'a1/image/candy1.jpeg','very yummy',100);
+
+create table category(
+    categoryid int auto_increment not null primary key,
+    cname varchar(20)
+   
+    );
+
+insert into category values (1,'糖果'),(2,'飲料'),(3,'餅乾');
+
+alter table product add constraint fk_product_category foreign key (categoryid) references category(categoryid) on update cascade on delete cascade;
+
+create table member(
+    mid int auto_increment not null primary key,
+    name varchar(20) not null,
+    
+    pwd varchar(255) not null);
+
+insert into member values (1,'aaa','123'),(2,'bbb','456');
+
+create table buy(
+    bid int auto_increment not null primary key,
+    mid int,
+    pid int,
+    quity int);
+
+insert into buy values(1,2,1,2);
+
+alter table buy add constraint fk_member_buy foreign key (mid) references member(mid) on update cascade on delete cascade;
+
+
+
+create table banner(
+    banid int auto_increment not null primary key,
+    mid int
+);
+
+create table cart(
+    mid int,
+    pid int,
+    quity int
+);
