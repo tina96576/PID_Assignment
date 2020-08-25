@@ -3,10 +3,35 @@ session_start();
 
 if(isset($_SESSION["name"])){
     $sname=$_SESSION["name"];
+   
+    echo $smid;
 
 }else{
     $sname="Guest"; 
 }
+
+
+//select category
+require("conn.php");
+$sqlStatement="select *  from category";
+$result=mysqli_query($link,$sqlStatement);
+
+
+if(isset($_GET["id"])){
+    $a=$_GET["id"];
+    
+}else{
+
+    //not choose page then random category
+    $sqlStatement_nc="select count(*)  from category";
+    $result_nc=mysqli_query($link,$sqlStatement_nc);
+    $row_nc=mysqli_fetch_assoc($result_nc);
+    $a=($row_nc["count(*)"]);
+    $a=(rand(1,$a));
+    
+}
+$sqlStatement_name="SELECT pid,pname,p.categoryid,price,img,descript FROM product as p join category as c on p.categoryid=c.categoryid where p.categoryid=$a";
+$result_name=mysqli_query($link,$sqlStatement_name);
 
 
 ?>
@@ -36,29 +61,12 @@ if(isset($_SESSION["name"])){
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                <a class="navbar-brand">Brand</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Link</a></li>
-                   
-                    
-                    <!-- <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li> -->
-                </ul>
+                
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search">
@@ -69,11 +77,16 @@ if(isset($_SESSION["name"])){
                 
                 <ul class="nav navbar-nav navbar-right">
                     
+                    
                     <?php if($sname=="Guest"):?>
+                    <a href="sign.php" class="btn btn-info btn-lg" role="button">註冊</a>
                     <a href="login.php" class="btn btn-primary btn-lg" role="button">登入</a>
+                    
                     <?php else: ?>
+                    <a href="cart.php" class="btn btn-success btn-lg" role="button">購物車</a>
                     <a href="login.php?logout=1" class="btn btn-warning btn-lg" role="button">登出</a>
                     <?php endif; ?>
+                    
                     <a href="secret.php" class="btn btn-primary btn-lg" role="button">會員專用頁</a>
                     
                 </ul>
@@ -96,18 +109,12 @@ if(isset($_SESSION["name"])){
                     <div class="panel-body">
 
                         <ul class="list-group list-group">
-                            <li class="list-group-item">Beginning of Spring 立春</li>
-                            <li class="list-group-item">Rain Water 雨水</li>
-                            <li class="list-group-item">Waking of Insects 驚蟄</li>
-                            <li class="list-group-item">Spring Equinox 春分</li>
-                            <li class="list-group-item">Pure Brightness 清明</li>
-                            <li class="list-group-item">Grain Rain 穀雨</li>
-                            <li class="list-group-item">Beginning of Spring 立春</li>
-                            <li class="list-group-item">Rain Water 雨水</li>
-                            <li class="list-group-item">Waking of Insects 驚蟄</li>
-                            <li class="list-group-item">Spring Equinox 春分</li>
-                            <li class="list-group-item">Pure Brightness 清明</li>
-                            <li class="list-group-item">Grain Rain 穀雨</li>
+                            
+                            <?php while($row=mysqli_fetch_assoc($result)):?>
+                            <li class="list-group-item"><a href="index.php?id=<?php echo $row["categoryid"] ?>" ><?=$row["cname"];?></a></li>
+                            <?php endwhile?>
+                            
+                            
                         </ul>
 
                     </div>
@@ -125,26 +132,24 @@ if(isset($_SESSION["name"])){
 
                         <ul class="list-group list-group">
                         <div class="row">
+
+                            <?php while($row_name=mysqli_fetch_assoc($result_name)):?>   
+                            
                             <div class="col-md-4">
                                 <div class="thumbnail">
-                                <a href="/w3images/lights.jpg">
-                                    <img src="/w3images/lights.jpg" alt="Lights" style="width:100%">
+                                <a href="product_item.php?pid=<?= $row_name["pid"]?>">
+                                
+                                    <img src="<?= $row_name["img"]?>" alt="Lights" width="100px" height="100px">
                                     <div class="caption">
-                                    <p>Lorem ipsum...</p>
+                                    <p>名稱:<?= $row_name["pname"]?></p>
+                                    <p>價錢:<?= $row_name["price"]?></p>
                                     </div>
                                 </a>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="thumbnail">
-                                <a href="/w3images/lights.jpg">
-                                    <img src="/w3images/lights.jpg" alt="Lights" style="width:100%">
-                                    <div class="caption">
-                                    <p>Lorem ipsum...</p>
-                                    </div>
-                                </a>
-                                </div>
-                            </div>
+                            <?php endwhile?>
+                            
+
                             
                         </div>
                         </ul>
@@ -163,15 +168,15 @@ if(isset($_SESSION["name"])){
 
 
 
-    <div class="container">
+    <!-- <div class="container">
         <div class="bs-callout bs-callout-danger">
             <h4>Cross-browser compatibility</h4>
             <p>Avoid using <code>&lt;select&gt;</code> elements here as they cannot be fully styled in WebKit browsers.</p>
         </div>
-    </div>
+    </div> -->
 
 
-    <img src="./image/candy/水果糖.jpeg" alt="Girl in a jacket" width="500" height="600">
+    <!-- <img src="./image/candy/水果糖.jpg" alt="Girl in a jacket" width="100" height="100"> -->
     
 </body>
 </html>

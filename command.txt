@@ -63,25 +63,41 @@ insert into buy (bid,mid,pid,quantity) values(1,2,1,2);
 
 insert into manager values (1,'cat','123','cat@gmail.com'),(2,'dog','456','dog@gmail.com');
 
-insert into product values (1,'水果糖',1,60,'./image/candy/水果糖.jpeg','薄荷的微涼、巧克力的甜蜜、還有多種水果的香甜，一共有六種形狀、七種口味',100);
-insert into product values (2,'牛奶糖',1,40,'./image/candy/牛奶糖.jpeg','特有的奶香與焦糖香',100);
-insert into product values (3,'彩虹糖',1,85,'./image/candy/彩虹糖.jpeg','享受像彩虹般酸酸甜甜好滋味',100);
-insert into product values (4,'棒棒糖',1,95,'./image/candy/棒棒糖.jpeg','可愛迷你棒棒糖、水果、草莓奶油、巧克力及可樂，四種口味一次滿足',100);
-insert into product values (5,'QQ糖',1,65,'./image/candy/QQ糖.jpeg','漢堡軟糖，口味都不同，可愛有趣',100);
+insert into product values (1,'水果糖',1,60,'./image/candy/水果糖.jpg','薄荷的微涼、巧克力的甜蜜、還有多種水果的香甜，一共有六種形狀、七種口味',100);
+insert into product values (2,'牛奶糖',1,40,'./image/candy/牛奶糖.jpg','特有的奶香與焦糖香',100);
+insert into product values (3,'彩虹糖',1,85,'./image/candy/彩虹糖.jpg','享受像彩虹般酸酸甜甜好滋味',100);
+insert into product values (4,'棒棒糖',1,95,'./image/candy/棒棒糖.jpg','可愛迷你棒棒糖、水果、草莓奶油、巧克力及可樂，四種口味一次滿足',100);
+insert into product values (5,'QQ糖',1,65,'./image/candy/QQ糖.jpg','漢堡軟糖，口味都不同，可愛有趣',100);
 
 
-insert into product values (6,'蘇打餅乾',3,70,'./image/biscuit/蘇打餅乾.jpeg','添加啤酒酵母好滋味',100);
-insert into product values (7,'起司餅乾',3,65,'./image/biscuit/夾心餅乾.jpeg','便利包裝，好吃不沾手',100);
-insert into product values (8,'牛奶餅乾',3,65,'./image/biscuit/牛奶餅乾.jpeg','酥、脆、香的自然口感',100);
-insert into product values (9,'巧克力餅乾',3,66,'./image/biscuit/巧克力餅乾.jpeg','餅乾口感酥脆又吃得到巧克力的濃郁滑順',100);
-insert into product values (10,'五榖餅乾',3,85,'./image/biscuit/五榖餅乾.jpeg','口感鬆脆、穀香味濃',100);
 
 
-insert into product values (11,'乳酸飲料(4入/組)',2,85,'./image/drink/乳酸飲料.jpeg','淡淡的乳酸口味清爽芳香',100);
-insert into product values (12,'運動飲料(6入/組)',2,119,'./image/drink/運動飲料.jpeg','水份流失最佳補給',100);
-insert into product values (13,'葡萄汁(4入/組)',2,72,'./image/drink/葡萄汁.jpeg','選用清爽不膩口的紅葡萄 感受酸甜口感好滋味',100);
-insert into product values (14,'綠蘆筍汁(4入/組)',2,72,'./image/drink/綠蘆筍汁.jpeg','採用優質蘆筍製成，生津止渴，清爽好喝',100);
-insert into product values (15,'芭樂汁(4入/組)',2,72,'./image/drink/芭樂汁.jpeg','採用台灣香甜芭樂，口感濃郁滑順，是老少咸宜的健康果汁',100);
+insert into product values (6,'蘇打餅乾',3,70,'./image/biscuit/蘇打餅乾.jpg','添加啤酒酵母好滋味',100);
+insert into product values (7,'起司餅乾',3,65,'./image/biscuit/夾心餅乾.png','便利包裝，好吃不沾手',100);
+insert into product values (8,'牛奶餅乾',3,65,'./image/biscuit/牛奶餅乾.jpg','酥、脆、香的自然口感',100);
+insert into product values (9,'巧克力餅乾',3,66,'./image/biscuit/巧克力餅乾.jpg','餅乾口感酥脆又吃得到巧克力的濃郁滑順',100);
+insert into product values (10,'五榖餅乾',3,85,'./image/biscuit/五榖餅乾.jpg','口感鬆脆、穀香味濃',100);
 
 
+
+insert into product values (11,'乳酸飲料(4入/組)',2,85,'./image/drink/乳酸飲料.jpg','淡淡的乳酸口味清爽芳香',100);
+insert into product values (12,'運動飲料(6入/組)',2,119,'./image/drink/運動飲料.jpg','水份流失最佳補給',100);
+insert into product values (13,'葡萄汁(4入/組)',2,72,'./image/drink/葡萄汁.jpg','選用清爽不膩口的紅葡萄 感受酸甜口感好滋味',100);
+insert into product values (14,'綠蘆筍汁(4入/組)',2,72,'./image/drink/綠蘆筍汁.jpg','採用優質蘆筍製成，生津止渴，清爽好喝',100);
+insert into product values (15,'芭樂汁(4入/組)',2,72,'./image/drink/芭樂汁.jpg','採用台灣香甜芭樂，口感濃郁滑順，是老少咸宜的健康果汁',100);
+
+
+
+
+
+
+
+
+SELECT `pname`,p.categoryid,`price`,`img`,`descript` FROM product as p join category as c on p.categoryid=c.categoryid where p.categoryid=1;
+
+SELECT `cartid`, `mid`, `pid`, `quantity` FROM `cart` WHERE mid=1
+
+
+
+SELECT m.mid,name, pname, quantity,(price*quantity) as tq,img FROM `cart` as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=1;
 

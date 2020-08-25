@@ -4,6 +4,8 @@
 
     if(isset($_GET["logout"])){
         unset($_SESSION["name"]);
+        unset($_SESSION["mid"]);
+        
         header("location: index.php");
         exit();
     }
@@ -19,25 +21,27 @@
         $result1=mysqli_query($link,$sql1);
         $row1=mysqli_fetch_assoc($result1);
 
+
         //manager
         $sql2="select * from manager where mname='$Name' and mpwd='$Password'";
         $result2=mysqli_query($link,$sql2);
         $row2=mysqli_fetch_assoc($result2);
         var_dump($row2);
   
-      
+        $_SESSION["name"]=$Name;
+        
+
         if($Name=$row1['name'] and $Password=$row1['pwd']){
             //echo "111";
-
-                //member
-            $_SESSION["name"]=$Name;
+            //member
+            $_SESSION["mid"]=$row1["mid"];
             header("location: index.php");
             exit();  
             
             //manger
         }else if($Name=$row2['mname'] and $Password=$row2['mpwd']){
             //echo "222222";
-            $_SESSION["name"]=$Name;
+            $_SESSION["mid"]=$row2["managerid"];
             header("location: manager.php");
             exit();  
 
@@ -75,7 +79,7 @@
 <body>
 
     
-    <div class="second">
+    <div class="container">
 
         <h1>login in</h1>
 
@@ -94,6 +98,7 @@
 
             <div class="row" >
                 
+
                 <button type="submit" class="btn btn-default btn-lg" name="btnOK" >
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 登入
                 </button>
