@@ -9,23 +9,33 @@
     }
 
     if(isset($_POST["btnOK"])){
+        
         $Name=$_POST["txtUserName"];
         $Password=$_POST["txtPassword"];
         $Email=$_POST["txtEmail"];
         
 
-        $_SESSION["name"]=$Name;
-  
-        //echo $Name,$Password;
-        $sql="insert into member(name,pwd,email)values('$Name','$Password','$Email')";       
-        //var_dump($sql);
-    
-        require("conn.php");
-        mysqli_query($link,$sql);
-        header("location: index.php");
+        $sql2="select * from member where email='$Email'";
+        $result2=mysqli_query($link,$sql2);
+        $row2=mysqli_fetch_assoc($result2);
+        if($row2["email"]= $Email){
+            echo "<script> {window.alert('已註冊，請重新登入'); location.href='login.php'} </script>";
 
+
+        }else{
+            $sql="insert into member(name,pwd,email)values('$Name','$Password','$Email')";       
+       
+            $_SESSION["name"]=$Name;
+            require("conn.php");
+            mysqli_query($link,$sql);
+            echo "<script> {window.alert('註冊成功'); location.href='index.php'} </script>";
+        }
+        //echo $Name,$Password;
+        
+        
     }
 
+    
 ?>
 
 
@@ -34,7 +44,7 @@
 <html lang="en">
 
 <head>
-    <title>login_system</title>
+    <title>sign</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -48,10 +58,13 @@
 <body>
 
     
-    <div class="second">
+    <div class="container">
 
-        <h1>Sign in</h1>
-
+        
+        <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+        <h1>sign in</h1>
         <form method="post" action="sign.php">
             <div class="form-group">
                 <label >Name</label>
@@ -68,7 +81,7 @@
                 <input type="text" class="form-control" name="txtEmail" placeholder="Enter Email" required="required">
             </div>
 
-            <div class="row" >
+            <div class="row-md-6" >
                 
                 <button type="submit" class="btn btn-default btn-lg" name="btnOK" >
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 註冊
@@ -90,6 +103,10 @@
             
             
         </form>
+        </div>
+        <div class="col-md-3"></div>
+        </div>
+       
         
        
     

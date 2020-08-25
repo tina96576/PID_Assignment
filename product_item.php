@@ -12,12 +12,14 @@ if(isset($_SESSION["name"])){
 
 //find product_item
 
-if(isset($_GET["pid"])){
+if(isset($_GET["pid"]) and $smid!=""){
     $item=$_GET["pid"];
     require("conn.php");
     $sqlStatement_item="SELECT * FROM product where pid=$item";
     $result_item=mysqli_query($link,$sqlStatement_item);
     $row_item=mysqli_fetch_assoc($result_item);
+}else{
+    echo "<script> {window.alert('請先登入'); location.href='login.php'} </script>";
 }
 
 
@@ -29,6 +31,7 @@ if(isset($_POST["cartok"])){
     $sqlStatement_cart="insert into cart (mid,pid,quantity) values ($smid,$item,$c)";
     require("conn.php");
     mysqli_query($link,$sqlStatement_cart);
+    echo "<script> {window.alert('成功加入購物車')} </script>";
     
 }
 
@@ -47,7 +50,7 @@ if(isset($_POST["cartok"])){
 
     
     <nav class="navbar navbar-default">
-        <p style="text-align:right; position: relative; margin:5px;">Hello! <?= $sname;?> &nbsp &nbsp</p>
+        <p style="text-align:right; position: relative; margin:5px; font-size:15px;">Hello! <?= $sname;?> &nbsp &nbsp</p>
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -78,6 +81,7 @@ if(isset($_POST["cartok"])){
                     <a href="login.php" class="btn btn-primary btn-lg" role="button">登入</a>
                     <?php else: ?>
                     <a href="login.php?logout=1" class="btn btn-warning btn-lg" role="button">登出</a>
+                    <a href="cart.php" class="btn btn-success btn-lg" role="button">購物車</a>
                     <?php endif; ?>
                     <a href="secret.php" class="btn btn-primary btn-lg" role="button">會員專用頁</a>
                     
@@ -106,27 +110,29 @@ if(isset($_POST["cartok"])){
 
                             <div class="col-md-6">
                                 <div class="thumbnail">
-                                    <img src="<?= $row_item["img"]?>" alt="Lights" width="100px" height="100px">
+                                    <img src="<?= $row_item["img"]?>" alt="Lights" width="200px" height="200px">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <form method="post" action="product_item.php?pid=<?= $item?>">
-                                    <p><?= $row_item["descript"]?></p>
+                                    <h4><?= $row_item["descript"]?></h4>
 
                                     <p>庫存量：<?= $row_item["cquity"]?></p>
                                     
-                                    <p>購買數量：<input id="buynumber" name="buynumber" type="number" value="1" min="1"></p>
+                                    <p>購買數量：<input id="buynumber" name="buynumber" type="number" value="1" min="1"  max="9999"></p>
+                                    
+                                    <br><br><br>
                                     
                                     <div class="rol-md-6">
                                     <button type="submit" class="btn btn-default btn-lg" name="cartok" >
                                         <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 加入購物車
-                                       
                                     </button>
                                    
                                     <a href="#" class="btn btn-danger btn-lg" role="button">結帳</a>
+                                    <a href="index.php" class="btn btn-primary btn-lg" role="button">返回</a>
                                         
-                                        
+                                       
                                     </div>
                                 </form>
                               

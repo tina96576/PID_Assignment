@@ -11,7 +11,7 @@ if(isset($_SESSION["name"])){
 //echo "smid".$smid;
 require("conn.php");
 $sqlStatement_cartlist=<<<sql
-SELECT m.mid,name, pname, quantity,(price*quantity) as tq,img FROM cart as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
+SELECT m.mid,name, pname,price, quantity,(price*quantity) as tq,img FROM cart as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
 sql;
 
 $result_cartlist=mysqli_query($link,$sqlStatement_cartlist);
@@ -20,6 +20,8 @@ while($row_cartlist=mysqli_fetch_assoc($result_cartlist)){
 
     //echo $row_cartlist["tq"]."<br>";
 }
+
+
 
 ?>
 
@@ -70,6 +72,7 @@ while($row_cartlist=mysqli_fetch_assoc($result_cartlist)){
                     <a href="login.php?logout=1" class="btn btn-warning btn-lg" role="button">登出</a>
                     <?php endif; ?>
                     <a href="secret.php" class="btn btn-primary btn-lg" role="button">會員專用頁</a>
+                    <a href="index.php" class="btn btn-info btn-lg" role="button">回首頁</a>
                     
                 </ul>
                 
@@ -83,8 +86,8 @@ while($row_cartlist=mysqli_fetch_assoc($result_cartlist)){
     <div class="container" >
         <div class="row" >
         
-            
-            <div class="col-sm-12" >
+            <div class="col-sm-1" ></div>
+            <div class="col-sm-10" >
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">購物車清單：</h3>
@@ -98,6 +101,7 @@ while($row_cartlist=mysqli_fetch_assoc($result_cartlist)){
                             <tr> 
                                 <th>圖片</th>
                                 <th>商品名稱</th>
+                                <th>單價</th>
                                 <th>數量</th>
                                 <th>價格</th>
                                 <th>&nbsp</th>
@@ -110,10 +114,11 @@ while($row_cartlist=mysqli_fetch_assoc($result_cartlist)){
                                 <td>Doe</td>
                                 <td>john@example.com</td>
                                 <td>john@example.com</td>
+                                <td>john@example.com</td>
                                 <td>&nbsp
                                 
                                 <span class="float-right">
-                                <a href="#" class="btn btn-success btn-sm" role="button">修改</a>|
+                                <a href="#" class="btn btn-success btn-sm" role="button">修改</a> |
                                 <a href="#" class="btn btn-danger btn-sm" role="button">刪除</a>
                                 
                                 </span>

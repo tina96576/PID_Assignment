@@ -13,7 +13,8 @@ create table cart(
     cartid int auto_increment primary key,
     mid int,
     pid int,
-    quantity int);
+    quantity int,
+    ctime timestamp not null default now());
 
 
 create table buy(

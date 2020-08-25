@@ -26,7 +26,7 @@
         $sql2="select * from manager where mname='$Name' and mpwd='$Password'";
         $result2=mysqli_query($link,$sql2);
         $row2=mysqli_fetch_assoc($result2);
-        var_dump($row2);
+        //var_dump($row2);
   
         $_SESSION["name"]=$Name;
         
@@ -35,13 +35,16 @@
             //echo "111";
             //member
             $_SESSION["mid"]=$row1["mid"];
-            header("location: index.php");
+            echo "<script> {window.alert('登入成功'); location.href='index.php'} </script>";
+            
             exit();  
+
             
             //manger
         }else if($Name=$row2['mname'] and $Password=$row2['mpwd']){
             //echo "222222";
             $_SESSION["mid"]=$row2["managerid"];
+            
             header("location: manager.php");
             exit();  
 
@@ -65,7 +68,7 @@
 <html lang="en">
 
 <head>
-    <title>login_system</title>
+    <title>login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -81,8 +84,10 @@
     
     <div class="container">
 
-        <h1>login in</h1>
-
+        <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+        <h1>login</h1>
         <form method="post" action="login.php">
             <div class="form-group">
                 <label >Name</label>
@@ -96,7 +101,7 @@
 
             
 
-            <div class="row" >
+            <div class="row-md-6" >
                 
 
                 <button type="submit" class="btn btn-default btn-lg" name="btnOK" >
@@ -119,6 +124,12 @@
             
             
         </form>
+        
+        </div>
+        <div class="col-md-3"></div>
+        </div>
+        
+        
         
        
     

@@ -4,7 +4,7 @@ session_start();
 if(isset($_SESSION["name"])){
     $sname=$_SESSION["name"];
    
-    echo $smid;
+    //echo $smid;
 
 }else{
     $sname="Guest"; 
@@ -44,7 +44,15 @@ $result_name=mysqli_query($link,$sqlStatement_name);
     <title>Lab</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+    <style>
+    .thumbnail:hover{
+        transform:scale(1.1,1.1);
+    }
+   
+    
+
+    </style>
 </head>
 <body>
 
@@ -83,11 +91,13 @@ $result_name=mysqli_query($link,$sqlStatement_name);
                     <a href="login.php" class="btn btn-primary btn-lg" role="button">登入</a>
                     
                     <?php else: ?>
-                    <a href="cart.php" class="btn btn-success btn-lg" role="button">購物車</a>
+                    
                     <a href="login.php?logout=1" class="btn btn-warning btn-lg" role="button">登出</a>
+                    <a href="cart.php" class="btn btn-success btn-lg" role="button">購物車</a>
+                    <a href="secret.php" class="btn btn-primary btn-lg" role="button">會員專用頁</a>
                     <?php endif; ?>
                     
-                    <a href="secret.php" class="btn btn-primary btn-lg" role="button">會員專用頁</a>
+                    
                     
                 </ul>
                 
@@ -140,9 +150,10 @@ $result_name=mysqli_query($link,$sqlStatement_name);
                                 <a href="product_item.php?pid=<?= $row_name["pid"]?>">
                                 
                                     <img src="<?= $row_name["img"]?>" alt="Lights" width="100px" height="100px">
+
                                     <div class="caption">
                                     <p>名稱:<?= $row_name["pname"]?></p>
-                                    <p>價錢:<?= $row_name["price"]?></p>
+                                    <p>價錢:<?= $row_name["price"]?>元</p>
                                     </div>
                                 </a>
                                 </div>
