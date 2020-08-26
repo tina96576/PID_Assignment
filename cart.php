@@ -11,7 +11,7 @@ if(isset($_SESSION["name"])){
 //echo "smid".$smid;
 require("conn.php");
 $sqlStatement_cartlist=<<<sql
-SELECT cartid,m.mid,name, pname,price, quantity,(price*quantity) as tq,img,ctime FROM cart as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
+SELECT p.pid,cartid,m.mid,name, pname,price, quantity,(price*quantity) as tq,img,ctime FROM cart as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
 sql;
 
 $result_cartlist=mysqli_query($link,$sqlStatement_cartlist);
@@ -135,9 +135,11 @@ $total=0;
 
                                 <td>
                                 <span class="pull-right">
-                                    <button class="btn btn-info btn-xs editItem">
+                                    <a href="product_item.php?cartpid=<?= $row_cartlist["cartid"]?>">
+                                    <button class="btn btn-succ btn-xs editItem">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true">
                                     </span>
+                                    </a>
                                     </button>&nbsp;
                                 
                                     <a href="./delete.php?cartid=<?= $row_cartlist["cartid"]?>">
@@ -212,10 +214,6 @@ $total=0;
                                     <br><br><br>
                                     
                                     <div class="rol-md-6">
-                                    
-                                   
-                                    <a href="#" class="btn btn-danger btn-lg" role="button">確認修改</a>
-                                    <a href="index.php" class="btn btn-primary btn-lg" role="button">返回</a>
                                         
                                        
                                     </div>
@@ -263,19 +261,19 @@ $total=0;
 
 
 
-    $(".editItem").click(function () {
+    // $(".editItem").click(function () {
        
        
         
-        var iIndex = $(this).closest("td").index();
-        currentIndex = iIndex;
-        alert(iIndex);
-        $("buya").val(<?= $row_cartlist['quantity']?>);
-        $("thumbnail").val(<?= $row_cartlist['img']?>);
-        $("#newsModal").modal( { backdrop: "static" } );
+    //     var iIndex = $(this).closest("td").index();
+    //     currentIndex = iIndex;
+    //     alert(iIndex);
+    //     $("buya").val(<?= $row_cartlist['quantity']?>);
+    //     $("thumbnail").val(<?= $row_cartlist['img']?>);
+    //     $("#newsModal").modal( { backdrop: "static" } );
 
 
-    })
+    // })
 
     
 

@@ -11,6 +11,8 @@ if(isset($_SESSION["name"])){
 }
 
 
+echo $_SESSION['cart'][13]['user'];    
+
 //select category
 require("conn.php");
 $sqlStatement="select *  from category";

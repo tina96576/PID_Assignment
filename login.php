@@ -14,7 +14,6 @@
         $Name=$_POST["txtUserName"];
         $Password=$_POST["txtPassword"];
       
-        
         //member
         $sql1="select * from member where name='$Name' and pwd='$Password'";
         require("conn.php");
@@ -28,7 +27,7 @@
         $row2=mysqli_fetch_assoc($result2);
         //var_dump($row2);
   
-        $_SESSION["name"]=$Name;
+        
         
 
         if($Name=$row1['name'] and $Password=$row1['pwd']){
@@ -36,7 +35,7 @@
             //member
             $_SESSION["mid"]=$row1["mid"];
             echo "<script> {window.alert('登入成功'); location.href='index.php'} </script>";
-            
+            $_SESSION["name"]=$Name;
             exit();  
 
             
@@ -44,7 +43,7 @@
         }else if($Name=$row2['mname'] and $Password=$row2['mpwd']){
             //echo "222222";
             $_SESSION["mid"]=$row2["managerid"];
-            
+            $_SESSION["name"]=$Name;
             header("location: manager.php");
             exit();  
 
