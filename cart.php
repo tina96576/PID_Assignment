@@ -11,15 +11,15 @@ if(isset($_SESSION["name"])){
 //echo "smid".$smid;
 require("conn.php");
 $sqlStatement_cartlist=<<<sql
-SELECT m.mid,name, pname,price, quantity,(price*quantity) as tq,img FROM cart as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
+SELECT cartid,m.mid,name, pname,price, quantity,(price*quantity) as tq,img,ctime FROM cart as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
 sql;
 
 $result_cartlist=mysqli_query($link,$sqlStatement_cartlist);
+$total=0;
+// while($row_cartlist=mysqli_fetch_assoc($result_cartlist)){
 
-while($row_cartlist=mysqli_fetch_assoc($result_cartlist)){
-
-    //echo $row_cartlist["tq"]."<br>";
-}
+//     echo $row_cartlist["tq"]."<br>";
+// }
 
 
 
@@ -35,6 +35,13 @@ while($row_cartlist=mysqli_fetch_assoc($result_cartlist)){
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
+<style>
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle!important;
+    }
+    
+</style>
 <body>
 
     
@@ -70,9 +77,13 @@ while($row_cartlist=mysqli_fetch_assoc($result_cartlist)){
                     <a href="login.php" class="btn btn-primary btn-lg" role="button">登入</a>
                     <?php else: ?>
                     <a href="login.php?logout=1" class="btn btn-warning btn-lg" role="button">登出</a>
+                    
                     <?php endif; ?>
+                    <a href="index.php" class="btn btn-info btn-lg" role="button">繼續購物</a>
                     <a href="secret.php" class="btn btn-primary btn-lg" role="button">會員專用頁</a>
-                    <a href="index.php" class="btn btn-info btn-lg" role="button">回首頁</a>
+                    
+                    
+                    
                     
                 </ul>
                 
@@ -92,42 +103,67 @@ while($row_cartlist=mysqli_fetch_assoc($result_cartlist)){
                     <div class="panel-heading">
                         <h3 class="panel-title">購物車清單：</h3>
                     </div>
+                    
                     <div class="panel-body">
-
-                        <ul class="list-group list-group">
+                        <div class="row-sm-10">
+                        <ul class="list-group list-group" >
  
-                            <table class="table table-striped">
+                            <table class="table table-striped"  >
                             <thead>
-                            <tr> 
+                            <tr>  
                                 <th>圖片</th>
                                 <th>商品名稱</th>
                                 <th>單價</th>
                                 <th>數量</th>
                                 <th>價格</th>
+                                <th>時間</th>
                                 <th>&nbsp</th>
                             </tr>
                             </thead>
-                            <tbody>
-                           
+                            <tbody> 
+                            
+                            
+                            <?php while($row_cartlist=mysqli_fetch_assoc($result_cartlist)):?>
                             <tr>
-                                <td>John</td>
-                                <td>Doe</td>
-                                <td>john@example.com</td>
-                                <td>john@example.com</td>
-                                <td>john@example.com</td>
-                                <td>&nbsp
+                                <td><img src="<?= $row_cartlist['img']?>" alt="Lights" width="50px" height="50px"></td>
+                                <td><?= $row_cartlist['pname']?></td>
+                                <td><?= $row_cartlist['price']?></td>
+                                <td><?= $row_cartlist['quantity']?></td>                              
+                                <td><?= $row_cartlist['tq']?></td>                              
+                                <td><?= $row_cartlist['ctime']?></td>
+                                <?php $total+=$row_cartlist['tq']?>
+
+                                <td>
+                                <span class="pull-right">
+                                    <button class="btn btn-info btn-xs editItem">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true">
+                                    </span>
+                                    </button>&nbsp;
                                 
-                                <span class="float-right">
-                                <a href="#" class="btn btn-success btn-sm" role="button">修改</a> |
-                                <a href="#" class="btn btn-danger btn-sm" role="button">刪除</a>
-                                
-                                </span>
+                                    <a href="./delete.php?cartid=<?= $row_cartlist["cartid"]?>">
+                                    <button class="btn btn-danger btn-xs deleteItem">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true">
+                                    </span>
+                                    </button>
+                                    </a>  
+                                </span>                          
                                 
                                 </td>
                             </tr>
+                            <?php endwhile?>
+                            
                             </tbody>
                         </table>
                         </ul>
+                        </div>
+                        <div class="row-sm-2">
+                        <hr>
+                        
+                        <h4 style="text-align:right;">
+                        總共：$ <input id="total" name="total" type="text" value="<?=$total?>" disabled="disabled">元</h4><br>
+                        
+                        <a href="#" class="btn btn-danger btn-lg" role="button" style="float:right">結帳</a>
+                        </div>
 
                     </div>
                 </div>  
@@ -137,12 +173,123 @@ while($row_cartlist=mysqli_fetch_assoc($result_cartlist)){
             
 
             
-        </div>
-            
+        </div>     
     </div>  
-  
+    <div id="ticketInput"></div>                          
+    <!-- 對話盒 -->
+    <div id="newsModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4>修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                    <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">產品名稱：</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group list-group">
+                        <div class="row">
+
+
+                            <div class="col-md-6">
+                                <div class="thumbnail">
+                                    <img src="" id="dimg" alt="Lights" width="200px" height="200px">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <form method="post" action="product_item.php?pid=<?= $item?>">
+                                    <h4><?= $row_item["descript"]?></h4>
+
+                                    
+                                    <div class="buya">
+                                    <p>購買數量：<input id="buynumber" name="buynumber" type="number" value="1" min="1"  max="9999"></p>
+                                    </div>
+                                    <br><br><br>
+                                    
+                                    <div class="rol-md-6">
+                                    
+                                   
+                                    <a href="#" class="btn btn-danger btn-lg" role="button">確認修改</a>
+                                    <a href="index.php" class="btn btn-primary btn-lg" role="button">返回</a>
+                                        
+                                       
+                                    </div>
+                                </form>
+                              
+                                
+                            </div>
+                        </div>
+                        </ul>
+
+                    </div>
+                </div>
+
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                        <div class="pull-right">
+                            <button type="button"
+                                    id="okButton"
+                                    class="btn btn-success">
+                                <span class="glyphicon glyphicon-ok"></span> 確定
+                            </button>
+                            <button type="button"
+                                    id="cancelButton"
+                                    class="btn btn-default"
+                                    data-dismiss="modal">
+                                <span class="glyphicon glyphicon-remove"></span> 取消
+                            </button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 對話盒 -->
+
+<!-- ========== UI 與 JavaScript 分隔線 ========== -->
+
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
+<script>
+
+
+
+    $(".editItem").click(function () {
+       
+       
+        
+        var iIndex = $(this).closest("td").index();
+        currentIndex = iIndex;
+        alert(iIndex);
+        $("buya").val(<?= $row_cartlist['quantity']?>);
+        $("thumbnail").val(<?= $row_cartlist['img']?>);
+        $("#newsModal").modal( { backdrop: "static" } );
+
+
+    })
+
     
+
+
+
+
+
+
+
+</script>
+
 </body>
 </html>
+
+
 
 
