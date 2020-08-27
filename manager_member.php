@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 
@@ -9,52 +10,23 @@ if(isset($_SESSION["name"])){
     $sname="Guest"; 
 }
 //echo "smid".$smid;
-require("conn.php");
+
+if(isset($_GET["mid"])){
+    $smid=$_GET["mid"];
+    require("conn.php");
 $sqlStatement_cartlist=<<<sql
-SELECT p.pid,cartid,m.mid,name, pname,price, quantity,(price*quantity) as tq,img,ctime FROM cart as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
+SELECT m.mid,name, pname,price, quantity,(price*quantity) as tq,img,btime FROM buy as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
 sql;
 
 $result_cartlist=mysqli_query($link,$sqlStatement_cartlist);
-$total=0;
+$row_cartlist=mysqli_fetch_assoc($result_cartlist);
+}  
 
 
-if(isset($_GET['buyid'])){
-    buy();
-}
+// while($row_cartlist=mysqli_fetch_assoc($result_cartlist)){
 
-function buy(){//結帳
-
-    require("conn.php");
-    $sqlStatement="select * from cart";
-    $result=mysqli_query($link,$sqlStatement);
-    
-    
-
-    while($row=mysqli_fetch_assoc($result)){
-        
-        
-        $cid=$row['cartid'];//購物車id
-        $mid=$row['mid']; //會員id
-        $pid=$row['pid']; //產品id
-        $quantity=$row['quantity']; //購買數量
-        
-        
-        $sqlStatement_updateq="UPDATE product SET  cquity=cquity-$quantity where pid=$pid";//更新庫存量
-        mysqli_query($link,$sqlStatement_updateq);
-
-        $sqlStatement_insert="insert into buy (mid,pid,quantity) values ($mid, $pid,$quantity)";//加入已購買清單
-        mysqli_query($link,$sqlStatement_insert);
-
-
-    }
-    $sqlStatement_empty="truncate table cart";
-    mysqli_query($link,$sqlStatement_empty);
-    
-    echo "<script> {location.href='cart.php'} </script>";
-    
-
-}
-
+//     echo $row_cartlist["tq"]."<br>";
+// }
 
 
 
@@ -97,25 +69,15 @@ function buy(){//結帳
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                
-                <form class="navbar-form navbar-left">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
 
                 
                 <ul class="nav navbar-nav navbar-right">
                     
-                    <?php if($sname=="Guest"):?>
-                    <a href="login.php" class="btn btn-primary btn-lg" role="button">登入</a>
-                    <?php else: ?>
+                    
                     <a href="login.php?logout=1" class="btn btn-warning btn-lg" role="button">登出</a>
                     
-                    <?php endif; ?>
-                    <a href="index.php" class="btn btn-info btn-lg" role="button">繼續購物</a>
-                    <a href="secret.php" class="btn btn-primary btn-lg" role="button">會員專用頁</a>
+                    <a href="manager.php?" class="btn btn-info btn-lg" role="button">回管理頁</a>
+                    
                     
                     
                     
@@ -134,16 +96,16 @@ function buy(){//結帳
         
             <div class="col-sm-1" ></div>
             <div class="col-sm-10" >
-                <div class="panel panel-info">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">購物車清單：</h3>
+                        <h3 class="panel-title"><?=$row_cartlist['name']?> 交易紀錄：</h3>
                     </div>
                     
                     <div class="panel-body">
                         <div class="row-sm-10">
                         <ul class="list-group list-group" >
  
-                            <table class="table table-striped">
+                            <table class="table table-striped"  >
                             <thead>
                             <tr>  
                                 <th>圖片</th>
@@ -165,27 +127,9 @@ function buy(){//結帳
                                 <td><?= $row_cartlist['price']?></td>
                                 <td><?= $row_cartlist['quantity']?></td>                              
                                 <td><?= $row_cartlist['tq']?></td>                              
-                                <td><?= $row_cartlist['ctime']?></td>
+                                <td><?= $row_cartlist['btime']?></td>
                                 <?php $total+=$row_cartlist['tq']?>
 
-                                <td>
-                                <span class="pull-right">
-                                    <a href="product_item.php?cartpid=<?= $row_cartlist["cartid"]?>">
-                                    <button class="btn btn btn-xs editItem">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true">
-                                    </span>
-                                    </a>
-                                    </button>&nbsp;
-                                
-                                    <a href="./delete.php?cartid=<?= $row_cartlist["cartid"]?>">
-                                    <button class="btn btn-danger btn-xs deleteItem">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true">
-                                    </span>
-                                    </button>
-                                    </a>  
-                                </span>                          
-                                
-                                </td>
                             </tr>
                             <?php endwhile?>
                             
@@ -194,13 +138,6 @@ function buy(){//結帳
                         </ul>
                         </div>
                         <div class="row-sm-2">
-                        <hr>
-                        
-                        <h4 style="text-align:right;">
-                        總共：$ <?=$total?>元</h4><br>
-                        
-                        <a href="cart.php?buyid=1" class="btn btn-danger btn-lg" role="button" name="buyok" style="float:right">結帳</a>
-                       
                         </div>
 
                     </div>
@@ -250,6 +187,10 @@ function buy(){//結帳
                                     <br><br><br>
                                     
                                     <div class="rol-md-6">
+                                    
+                                   
+                                    <a href="#" class="btn btn-danger btn-lg" role="button">確認修改</a>
+                                    <a href="index.php" class="btn btn-primary btn-lg" role="button">返回</a>
                                         
                                        
                                     </div>
@@ -297,19 +238,27 @@ function buy(){//結帳
 
 
 
+    $(".editItem").click(function () {
+       
+       
+        
+        var iIndex = $(this).closest("td").index();
+        currentIndex = iIndex;
+        alert(iIndex);
+        $("buya").val(<?= $row_cartlist['quantity']?>);
+        $("thumbnail").val(<?= $row_cartlist['img']?>);
+        $("#newsModal").modal( { backdrop: "static" } );
 
-    
 
-
-
-
-
+    })
 
 
 </script>
 
 </body>
 </html>
+
+
 
 
 

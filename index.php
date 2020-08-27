@@ -18,7 +18,7 @@ $result=mysqli_query($link,$sqlStatement);
 
 
 if(isset($_GET["id"])){
-    $a=$_GET["id"];
+    $a=$_GET["id"];//取產品類值
     
 }else{
 
@@ -58,12 +58,12 @@ $result_name=mysqli_query($link,$sqlStatement_name);
 
     
     <nav class="navbar navbar-default">
-        <p style="text-align:right; position: relative; margin:5px;">Hello! <?= $sname;?> &nbsp &nbsp</p>
+    <p style="text-align:right; position: relative; margin:5px;">Hello! <?= $sname;?> &nbsp &nbsp</p>
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">aa</span>
+                   
                    
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -75,12 +75,7 @@ $result_name=mysqli_query($link,$sqlStatement_name);
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 
-                <form class="navbar-form navbar-left">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
+                
 
                 
                 <ul class="nav navbar-nav navbar-right">

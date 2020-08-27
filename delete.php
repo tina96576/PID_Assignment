@@ -9,9 +9,7 @@ if(! is_numeric($id)){
     die("id not a number.");
 }
 
-$sql=<<<multi
-    delete from cart where cartid=$id
-    multi;
+$sql="delete from cart where cartid=$id";
 
     require("conn.php");
     mysqli_query($link,$sql);

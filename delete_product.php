@@ -5,15 +5,16 @@ if (!isset($_GET["pid"])){
 }
 
 $id=$_GET["pid"];
+$pimg=$_GET["pimg"];
+
 if(! is_numeric($id)){
     die("id not a number.");
 }
 
-$sql=<<<multi
-    delete from product where pid=$id
-    multi;
+$sql="delete from product where pid=$id";
 
-    require("conn.php");
-    mysqli_query($link,$sql);
-    header("location:manager.php");
+require("conn.php");
+mysqli_query($link,$sql);
+unlink($pimg);
+header("location:manager.php");
 ?>

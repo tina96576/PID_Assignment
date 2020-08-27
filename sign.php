@@ -13,16 +13,19 @@
         $Name=$_POST["txtUserName"];
         $Password=$_POST["txtPassword"];
         $Email=$_POST["txtEmail"];
-        
+  
+
 
         $sql2="select * from member where email='$Email'";
+       
         $result2=mysqli_query($link,$sql2);
         $row2=mysqli_fetch_assoc($result2);
-        if($row2["email"]= $Email){
-            echo "<script> {window.alert('已註冊，請重新登入'); location.href='login.php'} </script>";
 
-
+        if($row2["email"]==$Email){
+            echo "<script> {window.alert('Email已註冊，請重新登入'); location.href='login.php'} </script>";
+            
         }else{
+            require("conn.php");
             $sql="insert into member(name,pwd,email)values('$Name','$Password','$Email')";       
        
             $_SESSION["name"]=$Name;

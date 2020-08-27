@@ -11,9 +11,14 @@
     }
 
     if(isset($_POST["btnOK"])){
+
+
         $Name=$_POST["txtUserName"];
         $Password=$_POST["txtPassword"];
       
+      
+
+
         //member
         $sql1="select * from member where name='$Name' and pwd='$Password'";
         require("conn.php");
@@ -33,10 +38,16 @@
         if($Name=$row1['name'] and $Password=$row1['pwd']){
             //echo "111";
             //member
-            $_SESSION["mid"]=$row1["mid"];
-            echo "<script> {window.alert('登入成功'); location.href='index.php'} </script>";
-            $_SESSION["name"]=$Name;
-            exit();  
+
+            if($row1['bid']==1){
+                echo "<script> {window.alert('該用戶被禁止'); location.href='index.php'} </script>";
+            }else{
+                $_SESSION["mid"]=$row1["mid"];
+                echo "<script> {window.alert('登入成功'); location.href='index.php'} </script>";
+                $_SESSION["name"]=$Name;
+                exit();  
+            }
+            
 
             
             //manger

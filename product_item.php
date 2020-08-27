@@ -153,7 +153,7 @@ if(isset($_POST['mod'])){
                                         <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 加入購物車
                                         
                                     </button>
-                                    <a href="#" class="btn btn-danger btn-lg" role="button">結帳</a>
+                                    
                                     <a href="index.php" class="btn btn-primary btn-lg" role="button">返回</a>
                                     <?php endif?>
                                    

@@ -25,7 +25,7 @@ if(isset($_SESSION["name"])){
 //echo "smid".$smid;
 require("conn.php");
 $sqlStatement_cartlist=<<<sql
-SELECT bid,m.mid,name, pname,price, quantity,(price*quantity) as tq,img,btime FROM buy as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
+SELECT m.mid,name, pname,price, quantity,(price*quantity) as tq,img,btime FROM buy as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
 sql;
 
 $result_cartlist=mysqli_query($link,$sqlStatement_cartlist);
