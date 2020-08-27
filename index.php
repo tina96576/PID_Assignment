@@ -9,9 +9,7 @@ if(isset($_SESSION["name"])){
 }else{
     $sname="Guest"; 
 }
-
-
-echo $_SESSION['cart'][13]['user'];    
+ 
 
 //select category
 require("conn.php");

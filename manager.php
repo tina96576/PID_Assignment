@@ -1,18 +1,46 @@
+<?php
+session_start();
+
+if(isset($_SESSION["name"])){
+    $sname=$_SESSION["name"];
+   
+    //echo $smid;
+
+}else{
+    $sname="Guest"; 
+}
+
+//select category
 
 
-<!-- <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Lab - Upload file</title>
-</head>
-<body>
-	<form method="post" enctype="multipart/form-data" action="">
-		1. Select a file：<input type="file" name="file1" /><br /> <input
-			type="submit" name="btnOK" value="2. 送出資料" />
-	</form>
-</body>
-</html> -->
+
+if(isset($_GET['id'])){
+    $choose=$_GET['id'];
+    if($choose="1"){
+        require("conn.php");
+        $mem=array("產品清單","編號","圖片","產品名稱","類別","定價","庫存量","介紹");
+        $sqlStatement="SELECT pid,cname,pname,p.categoryid,price,img,descript,cquity,cname FROM product as p join category as c where p.categoryid=c.categoryid";
+        $result_mem=mysqli_query($link,$sqlStatement);
+
+    }else{
+        echo "新增";
+    }
+
+}else{
+
+    require("conn.php");
+    $mem=array("會員","編號","姓名","信箱");
+    $sqlStatement="SELECT * FROM member";
+    $result_mem=mysqli_query($link,$sqlStatement);
+
+}
+
+
+
+
+?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -20,8 +48,11 @@
     <meta charset="UTF-8">
     <title>Lab</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_ok.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
 </head>
 <body>
 
@@ -37,11 +68,24 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" >管理頁</a>
+                <ul class="nav navbar-nav">
+                <li class="active"></li>
+                <li class="active"><a href="manager.php">會員管理</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">商品管理 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                    <li><a href="manager.php?id=1">商品列表</a></li>
+                    <li><a href="add_product.php?id=2">新增</a></li>
+                    
+                    </ul>
+                </li>
+                
+                </ul>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
              
+                
                  
                 <ul class="nav navbar-nav navbar-right">
                 <a href="login.php?logout=1" class="btn btn-warning btn-lg" role="button">登出</a>
@@ -57,51 +101,65 @@
         </div><!-- /.container-fluid -->
     </nav>
 
-    <div class="container">
+    <div class="container-full">
         <div class="row">
-            <div class="col-sm-3">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">管理</h3>
-                    </div>
-                    <div class="panel-body">
-                        <ul class="list-group list-group">
-                            <li class="list-group-item">
+            
 
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                                    Collapsible Group 2</a>
-                                </h4>
-                                </div>
-                                <div id="collapse2" class="panel-collapse collapse">
-                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.</div>
-                                </div>
-                            </div>
-                            </li>
-
-                        </ul>
-
-                    </div>
-                </div>    
-
-            </div>
-
-            <div class="col-sm-9">
+            <div class="col-sm-12">
 
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Summer</h3>
+                        <h3 class="panel-title"><?= $mem[0]?></h3>
                     </div>
                     <div class="panel-body">
 
                         <ul class="list-group list-group">
-                            <li class="list-group-item"></li>
-                           
+                            <li class="list-group-item">
+                            
+                            <table class="table table-striped"  >
+                            <thead>
+                            <tr>  
+                                <?php for($i=1;$i<count($mem);$i++):?>
+                                
+                                <th><?= $mem[$i]?></th>
+                                <?php  endfor?>
+                            </tr>
+                            </thead>
+                            <tbody> 
+                            
+                            
+                            <?php while($row_cartlist=mysqli_fetch_assoc($result_mem)):?>
+                            <tr> 
+                            
+                                <?php if(!isset($row_cartlist['email'])):?>
+                                    <td><?= $row_cartlist['pid']?></td>
+                                    <td><?= $row_cartlist['cname']?></td>
+                                    <td><img src="<?= $row_cartlist["img"]?>" alt="Lights" width="100px" height="100px"></td>                                  
+                                    <td><?= $row_cartlist['pname']?></td> 
+                                    <td><?= $row_cartlist['price']?></td>
+                                    <td><?= $row_cartlist['cquity']?></td>
+                                    <td><?= $row_cartlist['descript']?></td>
+                                    
+                                 <?php else:?>
+                                    <td><?= $row_cartlist['mid']?></td>
+                                    <td><?= $row_cartlist['name']?></td>
+                                    <td><?= $row_cartlist['email']?></td> 
+                                <?php endif?>   
+                                <td>
+                                
+                                <a href="./delete_product.php?pid=<?= $row_cartlist["pid"]?>">
+                                    <button class="btn btn-danger btn-xs deleteItem">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></a> 
+                                </td> 
+
+                            </tr>
+                            <?php endwhile?>
+                            
+                            </tbody>
+                            </table>
+                            
+                            
+                            </li>  
                         </ul>
 
                     </div>
@@ -110,7 +168,6 @@
             </div>
 
             
-
         </div>
     </div>
 
