@@ -14,13 +14,17 @@ if(isset($_POST["sure"])){
     $price=$_POST["text2"];//定價
     $quanity=$_POST["text3"];//庫存
     $introduct=$_POST["textarea"];//產品介紹
-    $imgpath=processFile ( $_FILES ["file1"] );
 
-  
-    $sql="UPDATE product SET pname='$pname',categoryid='$category',price=$price,img='$imgpath',descript='$introduct',cquity=$quanity where pid=$id";
-    mysqli_query($link,$sql);
-    echo "<script> {window.alert('修改成功'); location.href='manager.php'} </script>";
     
+    if(empty($_FILES ["file1"]["tmp_name"])){
+        echo "<script> {alert('無圖檔');location.href='manger_modify.php?pid=$id'} </script>";
+    }else{
+        
+        $imgpath=processFile ( $_FILES ["file1"] );
+        $sql="UPDATE product SET pname='$pname',categoryid='$category',price=$price,img='$imgpath',descript='$introduct',cquity=$quanity where pid=$id";
+        mysqli_query($link,$sql);
+        echo "<script> {window.alert('修改成功'); location.href='manager.php'} </script>";
+    }
   
 }else{
 
@@ -62,6 +66,13 @@ function processFile($objFile) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+<style>
+img{
+  max-width:100px;
+  padding:10px;
+}
+
+</style>
 <body>
 
 
@@ -102,12 +113,14 @@ function processFile($objFile) {
         </div>
         </div> 
     
-        <label for="text4">上傳圖檔</label>
-        <input type="file" name="file1" accept="image/*" value=<?= $row["img"]?>> <span><img src="<?= $row["img"]?>" alt="Lights" width="100px" height="100px"></span>
-        
+        <label for="text4">上傳圖檔
+        <input type='file' onchange="readURL(this);" id="file1" name="file1" accept="image/*"/>
+        <img id="blah" src="http://placehold.it/180" alt="your image" />
+        </label>   
 
+    
         <br>
-        <button type="submit" class="btn btn-danger" name="sure" >確認</button>
+        <button type="submit" class="btn btn-danger" id="sure" name="sure" >確認</button>
         <a href="manager.php" class="btn btn-primary" role="button">返回</a>
 
     </form>
@@ -117,7 +130,21 @@ function processFile($objFile) {
     <div class="col-sm-3"></div>
 </div>
 
+<script>
 
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);};
+
+                    reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+</script>
 
 </body>
 </html>

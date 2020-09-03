@@ -72,8 +72,14 @@ if(isset($_GET["ban"])){  //封鎖
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     
 </head>
-<body>
+<style>
 
+.table-striped{
+    overflow: scroll;
+}
+
+</style>
+<body>
 
     <nav class="navbar navbar-default">
     <p style="text-align:right; position: relative; margin:5px;">Hello! <?= $sname;?> &nbsp &nbsp</p>
@@ -114,7 +120,7 @@ if(isset($_GET["ban"])){  //封鎖
                 </ul>
 
                 
-
+               
                 
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -139,13 +145,9 @@ if(isset($_GET["ban"])){  //封鎖
                             <thead>
                             <tr>  
                                 <?php for($i=1;$i<count($mem);$i++):?>
-                                
                                 <th><?= $mem[$i]?></th>
                                 <?php  endfor?>
                                 <th>&nbsp</th>
-                                
-                                
-                               
                             </tr>
                             </thead>
                             <tbody> 
@@ -194,10 +196,7 @@ if(isset($_GET["ban"])){  //封鎖
                                         </td>
                                     <?php endif;?>
                                     <td></td>
-                                    
-
-                                    
-                                    
+                                     
                                 <?php endif?>   
                                 
                                 

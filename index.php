@@ -39,14 +39,29 @@ $result_name=mysqli_query($link,$sqlStatement_name);
     <style>
     .thumbnail:hover{
         transform:scale(1.1,1.1);
+        border-color:#aaaaee;
+        border-width:1px;
     }
+    .navbar-brand{
+        
+        font-family: Tillana, handwriting;
+        font-size: 40px;
+        font-weight: bold;
+        font-style: oblique;
+        padding-top:-10px;
+       
+
+    }
+
+    
+   
     </style>
 </head>
 <body>
     <nav class="navbar navbar-default">
         <p style="text-align:right; position: relative; margin:5px;">Hello! <?= $sname;?> &nbsp &nbsp</p>
         <div class="container-fluid">
-            <div class="navbar-header"><a class="navbar-brand">Brand</a></div>
+            <div class="navbar-header"><a class="navbar-brand">Snack</a></div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <?php if($sname=="Guest"):?>

@@ -13,7 +13,6 @@ require("conn.php");
 $sqlStatement_cartlist=<<<sql
 SELECT p.pid,cartid,m.mid,name, pname,price, quantity,(price*quantity) as tq,img,ctime FROM cart as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
 sql;
-
 $result_cartlist=mysqli_query($link,$sqlStatement_cartlist);
 $total=0;
 
@@ -29,7 +28,6 @@ function buy(){//結帳
     $result=mysqli_query($link,$sqlStatement);
     while($row=mysqli_fetch_assoc($result)){
         
-        
         $cid=$row['cartid'];//購物車id
         $mid=$row['mid']; //會員id
         $pid=$row['pid']; //產品id
@@ -38,23 +36,14 @@ function buy(){//結帳
         
         $sqlStatement_updateq="UPDATE product SET  cquity=cquity-$quantity where pid=$pid";//更新庫存量
         mysqli_query($link,$sqlStatement_updateq);
-
         $sqlStatement_insert="insert into buy (mid,pid,quantity) values ($mid, $pid,$quantity)";//加入已購買清單
         mysqli_query($link,$sqlStatement_insert);
-
-
     }
     $sqlStatement_empty="truncate table cart";
     mysqli_query($link,$sqlStatement_empty);
-    
-    echo "<script> {location.href='cart.php'} </script>";
-    
+    header("location:cart.php");
 
 }
-
-
-
-
 ?>
 
 
@@ -72,6 +61,9 @@ function buy(){//結帳
         text-align: center;
         vertical-align: middle!important;
     }
+    .table-striped{
+        overflow: scroll;
+    }
     
 </style>
 <body>
@@ -82,59 +74,37 @@ function buy(){//結帳
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only"></span>
-                   
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <a class="navbar-brand">Brand</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                
-               
-
-                
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
                 <ul class="nav navbar-nav navbar-right">
-                    
                     <?php if($sname=="Guest"):?>
                     <a href="login.php" class="btn btn-primary btn-lg" role="button">登入</a>
                     <?php else: ?>
                     <a href="login.php?logout=1" class="btn btn-warning btn-lg" role="button">登出</a>
-                    
                     <?php endif; ?>
                     <a href="index.php" class="btn btn-info btn-lg" role="button">繼續購物</a>
-                    <a href="secret.php" class="btn btn-primary btn-lg" role="button">會員專用頁</a>
-                    
-                    
-                    
-                    
-                </ul>
-                
-                
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
+                    <a href="secret.php" class="btn btn-primary btn-lg" role="button">會員專用頁</a>   
+                </ul> 
+            </div>
+        </div>
     </nav>
     
 
     
     <div class="container" >
         <div class="row" >
-        
             <div class="col-sm-1" ></div>
             <div class="col-sm-10" >
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">購物車清單：</h3>
                     </div>
-                    
                     <div class="panel-body">
                         <div class="row-sm-10">
                         <ul class="list-group list-group" >
- 
                             <table class="table table-striped">
                             <thead>
                             <tr>  
@@ -148,8 +118,6 @@ function buy(){//結帳
                             </tr>
                             </thead>
                             <tbody> 
-                            
-                            
                             <?php while($row_cartlist=mysqli_fetch_assoc($result_cartlist)):?>
                             <tr>
                                 <td><img src="<?= $row_cartlist['img']?>" alt="Lights" width="50px" height="50px"></td>
@@ -159,7 +127,6 @@ function buy(){//結帳
                                 <td><?= $row_cartlist['tq']?></td>                              
                                 <td><?= $row_cartlist['ctime']?></td>
                                 <?php $total+=$row_cartlist['tq']?>
-
                                 <td>
                                 <span class="pull-right">
                                     <!-- 修改 -->
@@ -169,7 +136,6 @@ function buy(){//結帳
                                     </span>
                                     </a>
                                     </button>&nbsp;
-                                
                                     <a href="./delete.php?cartid=<?= $row_cartlist["cartid"]?>">
                                     <button class="btn btn-danger btn-xs deleteItem">
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true">
@@ -177,7 +143,6 @@ function buy(){//結帳
                                     </button>
                                     </a>  
                                 </span>                          
-                                
                                 </td>
                             </tr>
                             <?php endwhile?>
@@ -187,50 +152,14 @@ function buy(){//結帳
                         </ul>
                         </div>
                         <div class="row-sm-2">
-                        <hr>
-                        
-                        <h4 style="text-align:right;">
-                        總共：$ <?=$total?>元</h4><br>
-                        
+                        <hr><h4 style="text-align:right;">總共：$ <?=$total?>元</h4><br>
                         <a href="cart.php?buyid=1" class="btn btn-danger btn-lg" role="button" name="buyok" style="float:right">結帳</a>
-                       
                         </div>
-
                     </div>
                 </div>  
-               
-        
-            </div>
-            
-
-            
+            </div> 
         </div>     
-    </div>  
-    <div id="ticketInput"></div>                          
-   
-
-<!-- ========== UI 與 JavaScript 分隔線 ========== -->
-
-
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-
-
-<script>
-
-
-
-
-    
-
-
-
-
-
-
-
-</script>
-
+    </div>                          
 </body>
 </html>
 

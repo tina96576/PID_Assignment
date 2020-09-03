@@ -16,7 +16,7 @@ $rowm=mysqli_fetch_assoc($resultm);
 
 
 //尋找產品id
-if(isset($_GET["pid"]) and $smid!="" and $rowm['name']!=""){//判斷是否取得產品id及是否有使用者
+if(isset($_GET["pid"]) and $smid!="" and $rowm['name']==""){//判斷是否取得產品id及是否有使用者
     $item=$_GET["pid"];
     require("conn.php");
     $sqlStatement_item="SELECT * FROM product where pid=$item";
