@@ -27,9 +27,6 @@ function buy(){//結帳
     require("conn.php");
     $sqlStatement="select * from cart";
     $result=mysqli_query($link,$sqlStatement);
-    
-    
-
     while($row=mysqli_fetch_assoc($result)){
         
         
@@ -86,7 +83,7 @@ function buy(){//結帳
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">aa</span>
+                    <span class="sr-only"></span>
                    
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -98,12 +95,7 @@ function buy(){//結帳
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 
-                <form class="navbar-form navbar-left">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
+               
 
                 
                 <ul class="nav navbar-nav navbar-right">
@@ -170,7 +162,8 @@ function buy(){//結帳
 
                                 <td>
                                 <span class="pull-right">
-                                    <a href="product_item.php?cartpid=<?= $row_cartlist["cartid"]?>">
+                                    <!-- 修改 -->
+                                    <a href="product_item.php?cartpid=<?= $row_cartlist["cartid"]?>&quity=<?= $row_cartlist["quantity"]?>"> 
                                     <button class="btn btn btn-xs editItem">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true">
                                     </span>
@@ -214,77 +207,7 @@ function buy(){//結帳
         </div>     
     </div>  
     <div id="ticketInput"></div>                          
-    <!-- 對話盒 -->
-    <div id="newsModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4>修改</h4>
-                </div>
-                <div class="modal-body">
-                    <form>
-                    <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">產品名稱：</h3>
-                    </div>
-                    <div class="panel-body">
-                        <ul class="list-group list-group">
-                        <div class="row">
-
-
-                            <div class="col-md-6">
-                                <div class="thumbnail">
-                                    <img src="" id="dimg" alt="Lights" width="200px" height="200px">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <form method="post" action="product_item.php?pid=<?= $item?>">
-                                    <h4><?= $row_item["descript"]?></h4>
-
-                                    
-                                    <div class="buya">
-                                    <p>購買數量：<input id="buynumber" name="buynumber" type="number" value="1" min="1"  max="9999"></p>
-                                    </div>
-                                    <br><br><br>
-                                    
-                                    <div class="rol-md-6">
-                                        
-                                       
-                                    </div>
-                                </form>
-                              
-                                
-                            </div>
-                        </div>
-                        </ul>
-
-                    </div>
-                </div>
-
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                        <div class="pull-right">
-                            <button type="button"
-                                    id="okButton"
-                                    class="btn btn-success">
-                                <span class="glyphicon glyphicon-ok"></span> 確定
-                            </button>
-                            <button type="button"
-                                    id="cancelButton"
-                                    class="btn btn-default"
-                                    data-dismiss="modal">
-                                <span class="glyphicon glyphicon-remove"></span> 取消
-                            </button>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 對話盒 -->
+   
 
 <!-- ========== UI 與 JavaScript 分隔線 ========== -->
 

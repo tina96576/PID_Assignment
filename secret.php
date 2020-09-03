@@ -7,13 +7,6 @@ if(!isset($_SESSION["name"])){
 }
 
 
-?>
-
-
-
-
-<?php
-session_start();
 
 if(isset($_SESSION["name"])){
     $sname=$_SESSION["name"];

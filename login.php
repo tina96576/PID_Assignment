@@ -5,7 +5,6 @@
     if(isset($_GET["logout"])){
         unset($_SESSION["name"]);
         unset($_SESSION["mid"]);
-        
         header("location: index.php");
         exit();
     }
@@ -16,9 +15,6 @@
         $Name=$_POST["txtUserName"];
         $Password=$_POST["txtPassword"];
       
-      
-
-
         //member
         $sql1="select * from member where name='$Name' and pwd='$Password'";
         require("conn.php");
@@ -33,12 +29,8 @@
         //var_dump($row2);
   
         
-        
-
         if($Name=$row1['name'] and $Password=$row1['pwd']){
-            //echo "111";
-            //member
-
+ 
             if($row1['bid']==1){
                 echo "<script> {window.alert('該用戶被禁止'); location.href='index.php'} </script>";
             }else{
@@ -48,11 +40,9 @@
                 exit();  
             }
             
-
-            
             //manger
         }else if($Name=$row2['mname'] and $Password=$row2['mpwd']){
-            //echo "222222";
+
             $_SESSION["mid"]=$row2["managerid"];
             $_SESSION["name"]=$Name;
             header("location: manager.php");
@@ -60,14 +50,11 @@
 
         }
         else{
-            //echo "444";
-            //sign in
+        
             header("location: sign.php");
             exit();
 
-        }
-        
-        
+        } 
     }
 
 ?>

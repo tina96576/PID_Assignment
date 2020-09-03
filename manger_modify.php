@@ -25,39 +25,27 @@ if(isset($_POST["sure"])){
 }else{
 
     $sql="SELECT * FROM product as p join category as c on p.categoryid=c.categoryid where p.pid=$id";
-
     $result=mysqli_query($link,$sql);
-
     $row=mysqli_fetch_assoc($result);
-    
+     
     //var_dump($row);
 }
 
 
 
 function processFile($objFile) {
-   
     $category=$_POST["category"];
 	if ($objFile ["error"] != 0) {
 		echo "Upload Fail! ";
 		return;
 	}
-	
 	$test = move_uploaded_file ( $objFile ["tmp_name"], "./image/".$category."/" . $objFile ["name"] );
 	if (! $test) {
 		die ( "move_uploaded_file() faile" );
 	}
-
     $imgpath="./image/".$category."/" .$objFile ["name"];
     return $imgpath;
 }
-
-
-
-
-
-
-
 
 
 ?>
@@ -82,7 +70,7 @@ function processFile($objFile) {
 <div class="container">
     <div class="col-sm-3" ></div>
     <div class="col-sm-6" >
-    <h2 style="text-align:center;"></h2>
+    <h2 style="text-align:center;">修改產品</h2>
 
     <form method="post" action="" enctype="multipart/form-data">
         <div class="form-group">
@@ -99,8 +87,6 @@ function processFile($objFile) {
         </select>
         </div>
 
-       
-
         <div class="form-group">
         <label for="text2">定價</label>
         <input type="number" class="form-control" id="text2"  name="text2" value=<?=$row['price']?> min="1" max="99999">
@@ -112,19 +98,16 @@ function processFile($objFile) {
         <div class="form-group">
         <label for="textarea" class="col-4 col-form-label" >產品介紹</label> 
         <div class="col-8">
-        <textarea id="textarea" name="textarea" cols="40" rows="5" class="form-control" value=<?=$row['descript']?>></textarea>
+        <textarea id="textarea" name="textarea" class="form-control" value=""><?=$row['descript']?></textarea>
         </div>
         </div> 
     
         <label for="text4">上傳圖檔</label>
-        <input type="file" name="file1" accept="image/*"/>
+        <input type="file" name="file1" accept="image/*" value=<?= $row["img"]?>> <span><img src="<?= $row["img"]?>" alt="Lights" width="100px" height="100px"></span>
         
-        
-
 
         <br>
         <button type="submit" class="btn btn-danger" name="sure" >確認</button>
-       
         <a href="manager.php" class="btn btn-primary" role="button">返回</a>
 
     </form>
