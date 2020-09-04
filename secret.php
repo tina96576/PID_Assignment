@@ -1,12 +1,10 @@
 <?php
-
+//會員專用頁(購買紀錄)
 session_start();
 
 if(!isset($_SESSION["name"])){
     header("location:login.php");
 }
-
-
 
 if(isset($_SESSION["name"])){
     $sname=$_SESSION["name"];
@@ -23,12 +21,6 @@ sql;
 
 $result_cartlist=mysqli_query($link,$sqlStatement_cartlist);
 $total=0;
-// while($row_cartlist=mysqli_fetch_assoc($result_cartlist)){
-
-//     echo $row_cartlist["tq"]."<br>";
-// }
-
-
 
 ?>
 
@@ -56,9 +48,8 @@ $total=0;
     <nav class="navbar navbar-default">
         <p style="text-align:right; position: relative; margin:5px;">Hello! <?= $sname;?> &nbsp &nbsp</p>
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="navbar-brand">Brand</a>
+                <a class="navbar-brand">Snack</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -75,8 +66,6 @@ $total=0;
         </div><!-- /.container-fluid -->
     </nav>
     
-
-    
     <div class="container" >
         <div class="row" >
             <div class="col-sm-1" ></div>
@@ -88,22 +77,11 @@ $total=0;
                     <div class="panel-body">
                         <div class="row-sm-10">
                         <ul class="list-group list-group" >
- 
                             <table class="table table-striped"  >
                             <thead>
-                            <tr>  
-                                <th>圖片</th>
-                                <th>商品名稱</th>
-                                <th>單價</th>
-                                <th>數量</th>
-                                <th>價格</th>
-                                <th>時間</th>
-                                
-                            </tr>
+                            <tr><th>圖片</th><th>商品名稱</th><th>單價</th><th>數量</th><th>價格</th><th>時間</th>  </tr>
                             </thead>
                             <tbody> 
-                            
-                            
                             <?php while($row_cartlist=mysqli_fetch_assoc($result_cartlist)):?>
                             <tr>
                                 <td><img src="<?= $row_cartlist['img']?>" alt="Lights" width="50px" height="50px"></td>
@@ -114,7 +92,6 @@ $total=0;
                                 <td><?= $row_cartlist['btime']?></td>
                                 <?php $total+=$row_cartlist['tq']?>
                             </tr>
-                            
                             <?php endwhile?>
                             </tbody>
                         </table>
@@ -127,7 +104,6 @@ $total=0;
             </div>  
         </div>     
     </div>  
-
 </body>
 </html>
 

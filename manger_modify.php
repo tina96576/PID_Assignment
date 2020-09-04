@@ -1,12 +1,22 @@
 <?php
 
+require("conn.php");
+
+if(isset($_SESSION["name_manger"])){
+    $sname=$_SESSION["name_manger"];
+    $smid=$_SESSION["mid_manger"];
+}else{
+    $sname="Guest"; 
+}
 
 $id=$_GET["pid"];
 if(! is_numeric($id)){
     die("id not a number");
 }
+$sql="SELECT * FROM product as p join category as c on p.categoryid=c.categoryid where p.pid=$id";
+$result=mysqli_query($link,$sql);
+$row=mysqli_fetch_assoc($result);
 
-require("conn.php");
 
 if(isset($_POST["sure"])){
     $pname=$_POST["text1"];//產品名稱
@@ -15,26 +25,20 @@ if(isset($_POST["sure"])){
     $quanity=$_POST["text3"];//庫存
     $introduct=$_POST["textarea"];//產品介紹
 
-    
+
     if(empty($_FILES ["file1"]["tmp_name"])){
-        echo "<script> {alert('無圖檔');location.href='manger_modify.php?pid=$id'} </script>";
+        //echo "<script> {alert('無圖檔');location.href='manger_modify.php?pid=$id'} </script>";
+        $imgpath=$row['img'];
+    
     }else{
-        
         $imgpath=processFile ( $_FILES ["file1"] );
-        $sql="UPDATE product SET pname='$pname',categoryid='$category',price=$price,img='$imgpath',descript='$introduct',cquity=$quanity where pid=$id";
-        mysqli_query($link,$sql);
-        echo "<script> {window.alert('修改成功'); location.href='manager.php'} </script>";
     }
+    
+    $sql="UPDATE product SET pname='$pname',categoryid='$category',price=$price,img='$imgpath',descript='$introduct',cquity=$quanity where pid=$id";
+    mysqli_query($link,$sql);
+    echo "<script> {window.alert('修改成功'); location.href='manager.php'} </script>";
   
-}else{
-
-    $sql="SELECT * FROM product as p join category as c on p.categoryid=c.categoryid where p.pid=$id";
-    $result=mysqli_query($link,$sql);
-    $row=mysqli_fetch_assoc($result);
-     
-    //var_dump($row);
 }
-
 
 
 function processFile($objFile) {
@@ -114,8 +118,10 @@ img{
         </div> 
     
         <label for="text4">上傳圖檔
+        
+      
         <input type='file' onchange="readURL(this);" id="file1" name="file1" accept="image/*"/>
-        <img id="blah" src="http://placehold.it/180" alt="your image" />
+        <img id="blah" src="<?=$row['img']?>" alt="your image" />
         </label>   
 
     
@@ -135,10 +141,8 @@ img{
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-
                 reader.onload = function (e) {
                     $('#blah').attr('src', e.target.result);};
-
                     reader.readAsDataURL(input.files[0]);
             }
         }

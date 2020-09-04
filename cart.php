@@ -11,8 +11,9 @@ if(isset($_SESSION["name"])){
 //echo "smid".$smid;
 require("conn.php");
 $sqlStatement_cartlist=<<<sql
-SELECT p.pid,cartid,m.mid,name, pname,price, quantity,(price*quantity) as tq,img,ctime FROM cart as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
+    SELECT p.pid,cartid,m.mid,name, pname,price, quantity,(price*quantity) as tq,img,ctime FROM cart as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
 sql;
+
 $result_cartlist=mysqli_query($link,$sqlStatement_cartlist);
 $total=0;
 
@@ -22,7 +23,6 @@ if(isset($_GET['buyid'])){
 }
 
 function buy(){//結帳
-
     require("conn.php");
     $sqlStatement="select * from cart";
     $result=mysqli_query($link,$sqlStatement);
@@ -33,7 +33,6 @@ function buy(){//結帳
         $pid=$row['pid']; //產品id
         $quantity=$row['quantity']; //購買數量
         
-        
         $sqlStatement_updateq="UPDATE product SET  cquity=cquity-$quantity where pid=$pid";//更新庫存量
         mysqli_query($link,$sqlStatement_updateq);
         $sqlStatement_insert="insert into buy (mid,pid,quantity) values ($mid, $pid,$quantity)";//加入已購買清單
@@ -42,7 +41,6 @@ function buy(){//結帳
     $sqlStatement_empty="truncate table cart";
     mysqli_query($link,$sqlStatement_empty);
     header("location:cart.php");
-
 }
 ?>
 
@@ -67,14 +65,12 @@ function buy(){//結帳
     
 </style>
 <body>
-
-    
     <nav class="navbar navbar-default">
         <p style="text-align:right; position: relative; margin:5px;">Hello! <?= $sname;?> &nbsp &nbsp</p>
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="navbar-brand">Brand</a>
+                <a class="navbar-brand">Snack</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -90,10 +86,7 @@ function buy(){//結帳
                 </ul> 
             </div>
         </div>
-    </nav>
-    
-
-    
+    </nav> 
     <div class="container" >
         <div class="row" >
             <div class="col-sm-1" ></div>
@@ -108,13 +101,7 @@ function buy(){//結帳
                             <table class="table table-striped">
                             <thead>
                             <tr>  
-                                <th>圖片</th>
-                                <th>商品名稱</th>
-                                <th>單價</th>
-                                <th>數量</th>
-                                <th>價格</th>
-                                <th>時間</th>
-                                <th>&nbsp</th>
+                                <th>圖片</th><th>商品名稱</th><th>單價</th><th>數量</th><th>價格</th><th>時間</th><th>&nbsp</th>
                             </tr>
                             </thead>
                             <tbody> 
