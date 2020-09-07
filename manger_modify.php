@@ -76,6 +76,18 @@ img{
   padding:10px;
 }
 
+.navbar-brand{
+        
+        font-family: Tillana, handwriting;
+        font-size: 40px;
+        font-weight: bold;
+        font-style: oblique;
+        padding-top:-10px;
+       
+
+    }
+
+
 </style>
 <body>
 

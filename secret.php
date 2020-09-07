@@ -35,6 +35,13 @@ $total=0;
     <link href="css/style.css" rel="stylesheet">
 </head>
 <style>
+    
+    body{
+        background-image: url("./image/cover/background3.jpeg");
+        background-repeat:no-repeat;
+        background-size:cover;      
+    }
+
     .table th, .table td {
         text-align: center;
         vertical-align: middle!important;
@@ -42,6 +49,15 @@ $total=0;
     .table-striped{
         overflow: scroll;
     }
+
+    .navbar-brand{ 
+        font-family: Tillana, handwriting;
+        font-size: 40px;
+        font-weight: bold;
+        font-style: oblique;
+        padding-top:-10px;
+    }
+
     
 </style>
 <body>

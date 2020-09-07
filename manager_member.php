@@ -15,10 +15,7 @@ if(isset($_GET["memberid"])){
 
     $sql_cartlist="SELECT m.mid,name, pname,price, quantity,(price*quantity) as tq,img,btime FROM buy as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid";
     $result_cartlist=mysqli_query($link,$sql_cartlist);
-   
 }  
-
-
 ?>
 
 
@@ -35,6 +32,15 @@ if(isset($_GET["memberid"])){
     .table th, .table td {
         text-align: center;
         vertical-align: middle!important;
+    }
+
+    .navbar-brand{
+        
+        font-family: Tillana, handwriting;
+        font-size: 40px;
+        font-weight: bold;
+        font-style: oblique;
+        padding-top:-10px;
     }
     
 </style>
@@ -54,7 +60,7 @@ if(isset($_GET["memberid"])){
 
                 <ul class="nav navbar-nav navbar-right">                   
                     <a href="login.php?logout=1" class="btn btn-warning btn-lg" role="button">登出</a>
-                    <a href="manager.php?" class="btn btn-info btn-lg" role="button">回管理頁</a>  
+                    <a href="manager.php?id=1" class="btn btn-info btn-lg" role="button">回上頁</a>  
                 </ul> 
             </div>
         </div>

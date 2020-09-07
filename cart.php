@@ -8,7 +8,7 @@ if(isset($_SESSION["name"])){
 }else{
     $sname="Guest"; 
 }
-//echo "smid".$smid;
+
 require("conn.php");
 $sqlStatement_cartlist=<<<sql
     SELECT p.pid,cartid,m.mid,name, pname,price, quantity,(price*quantity) as tq,img,ctime FROM cart as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
@@ -16,6 +16,8 @@ sql;
 
 $result_cartlist=mysqli_query($link,$sqlStatement_cartlist);
 $total=0;
+
+
 
 
 if(isset($_GET['buyid'])){
@@ -52,7 +54,7 @@ function buy(){//結帳
     <title>Lab</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+ 
 </head>
 <style>
     .table th, .table td {
@@ -61,6 +63,14 @@ function buy(){//結帳
     }
     .table-striped{
         overflow: scroll;
+    }
+    .navbar-brand{
+        
+        font-family: Tillana, handwriting;
+        font-size: 40px;
+        font-weight: bold;
+        font-style: oblique;
+        padding-top:-10px;
     }
     
 </style>

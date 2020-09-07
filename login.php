@@ -27,10 +27,10 @@
 
         if($Name=$row1['name'] and $Password=$row1['pwd']){
             if($row1['bid']==1){ //判斷是否為停用會員
-                echo "<script> {window.alert('該用戶被禁止'); location.href='index.php'} </script>";
+                echo "<script> {alert('該用戶被禁止'); location.href='index.php'} </script>";
             }else{
                 $_SESSION["mid"]=$row1["mid"];
-                echo "<script> {window.alert('登入成功'); location.href='index.php'} </script>";
+                echo "<script> {location.href='index.php'} </script>";
                 $_SESSION["name"]=$Name;
                 exit();  
             }    
@@ -42,19 +42,17 @@
             exit();  
         }
         else{
-            echo "<script> {window.alert('無會員資料，請註冊'); location.href='sign.php'} </script>";
+            echo "<script> {alert('無會員資料，請註冊'); location.href='sign.php'} </script>";
             exit();
         } 
     }
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>login</title>
+    <title>Snack</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">

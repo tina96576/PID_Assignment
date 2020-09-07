@@ -15,7 +15,7 @@
         $Email=$_POST["txtEmail"];
   
         //尋找會員資料
-        $sql2="select * from member where email='$Email' and pwd=$Password and name=$Name";
+        $sql2="select * from member where email='$Email'";
         $result2=mysqli_query($link,$sql2);
         $row2=mysqli_fetch_assoc($result2);
 
@@ -27,9 +27,7 @@
             mysqli_query($link,$sql);
             echo "<script> {window.alert('註冊成功，請重新登入'); location.href='login.php'} </script>";
         }  
-    }
-
-    
+    }  
 ?>
 
 
@@ -59,11 +57,11 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">密碼</label>
                     <input type="password" id="password" class="form-control" name="txtPassword" placeholder="密碼長度在6-30字元內，至少包含數字大小寫英文字母" required="required" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$">
-                    <input type="checkbox" onclick="showpwd()">顯示<br><br>
+                    <input type="checkbox" onclick="showpwd()">顯示<br>
                 </div>
                 <div class="form-group">
                     <label for="Email">Email</label>
-                    <input type="text" class="form-control" name="txtEmail" placeholder="請輸入信箱" required="required"  pattern="/^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$/">
+                    <input type="text" class="form-control" name="txtEmail" placeholder="請輸入信箱" pattern="/^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$/" required="required"  pattern="/^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$/">
                 </div>
                 <div class="row-md-6" >
                     <button type="submit" class="btn btn-default btn-lg" name="btnOK" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 註冊</button>

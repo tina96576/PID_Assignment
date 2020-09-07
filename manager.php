@@ -48,10 +48,6 @@ if(isset($_GET["ban"])){  //封鎖
     echo "<script> {window.alert('該用戶已停用'); location.href='manager.php?id=1'} </script>";
 }
 
-$b="<script>cname;</script>";
-
-echo $b;
-
 ?>
 
 
@@ -63,14 +59,9 @@ echo $b;
     <title>Lab</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
-
-.table-striped{
-    overflow: scroll;
-}
-
+ 
 </style>
 <body>
     
@@ -88,7 +79,6 @@ echo $b;
                     <ul class="dropdown-menu">
                     <li><a href="manager.php">商品清單</a></li>
                     <li><a href="add_product.php">新增產品</a></li>
-                    <li><a data-target="#myModal" data-toggle="modal">新增產品類別</a></li>
                     </ul>
                 </li>
                 </ul>
@@ -99,6 +89,7 @@ echo $b;
                 <a href="login.php?logout=1" class="btn btn-warning btn-lg" role="button">登出</a>
                 </ul> 
             </div>
+     
         </div>
     </nav>
 
@@ -131,10 +122,18 @@ echo $b;
                                     <td><?= $row_cartlist['price']?></td>
                                     <td><?= $row_cartlist['cquity']?></td>
                                     <td><?= $row_cartlist['descript']?></td>
+
                                     <td>
-                                    <span class="pull-right">
-                                    <a href="manger_modify.php?pid=<?= $row_cartlist['pid']?>"><button class="btn btn btn-xs editItem"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a>
-                                    <a href="./delete_product.php?pid=<?= $row_cartlist["pid"]?>&pimg=<?= $row_cartlist["img"]?>"><button class="btn btn-danger btn-xs deleteItem"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></a>
+                                    <span class="pull-right">           
+                                        <a href="manger_modify.php?pid=<?= $row_cartlist['pid']?>">
+                                        <button class="btn btn-success btn-xs editItem" >
+                                        <span class="glyphicon glyphicon-pencil" ></span>
+                                        </button></a>&nbsp
+
+                                        <a href="./delete_product.php?pid=<?= $row_cartlist["pid"]?>&pimg=<?= $row_cartlist["img"]?>">
+                                        <button class="btn btn-danger btn-xs deleteItem">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        </button></a>
                                     </span>
                                     </td>
                                     
@@ -149,8 +148,10 @@ echo $b;
                                         <?php elseif($row_cartlist['bid']==0):?>
                                         <td><a href="manager.php?id=1&ban=<?=$row_cartlist['mid']?>" class="btn btn-success btn-sm " role="button" aria-pressed="true">正常</a></td>
                                     <?php endif;?>
-                                    <td></td>   
-                                <?php endif?>   
+                                    <td>&nbsp</td> 
+                                <?php endif?> 
+                                
+                                
                             </tr>
                             <?php endwhile?>
                             </tbody>
@@ -162,49 +163,14 @@ echo $b;
             </div>   
         </div>
     </div>
-
-    <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">新增類別</h4>
-        </div>
-        <div class="modal-body">
-        <input type="text" class="form-control" name="cname" id="cname" placeholder="請輸入新類別" required="required"> 
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" id="send" data-dismiss="modal">OK</button>
-            <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
   </div>
-<div id="show"></div>
+
 
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jquery.toast.js"></script>
 
-<script>
-    $(function () {
-        $("#myModal").click(function () {
-            $("#cname").val("");
-        })
 
-        $("#send").click(function(){
-            $("#myModal").modal("hide");
-            var cname=$("#cname").val();
-            $("#show").html(cname);
-        });
 
-        $("#close").click(function(){
-            $("#myModal").modal("hide");
-        })
-    });
-</script>
- 
     
 </body>
 </html>
