@@ -37,7 +37,6 @@ $c=$_POST['buynumber'];//購物車選擇數量
 if(isset($_POST["cartok"])){
 
     if( $smid!=""){//判斷是否有使用者
-
         if($row_item["cquity"]<$c){
             echo "<script> {window.alert('選擇數目已超過庫存量')} </script>";
         }else{
@@ -88,7 +87,7 @@ if(isset($_POST['mod'])){
 
     .product{
         margin-top:30px;
-        width:850px;
+        width:810px;
         height:400px;
         border-radius: 20px;
         border:2px solid gray;
@@ -102,48 +101,43 @@ if(isset($_POST['mod'])){
 
     }
 
+    img {
+        height: 250px;
+        width: 250px;
+        margin-top:-20px;
+        margin-left:60px;
+        padding:10px;
+        border:1px solid lightgray;
+        -webkit-transition: all .3s ease-in; 
+    }
 
+    .fullSize {
+        transform: scale(1.8,1.8);
+    }
 </style>
 <body>
 
     
     <nav class="navbar navbar-default">
-        <p style="text-align:right; position: relative; margin:5px; font-size:15px;">Hello! <?= $sname;?> &nbsp &nbsp</p>
+        <p style="text-align:right; position: relative; margin:5px; font-size:18px;">Hello! <?= $sname;?> &nbsp &nbsp</p>
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only"></span>
-                   
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <a class="navbar-brand">Snack</a>
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
                 <ul class="nav navbar-nav navbar-right">
-                    
                     <?php if($sname=="Guest"):?>
                     <a href="login.php" class="btn btn-primary btn-lg" role="button">登入</a>
-
                     <?php else: ?>
                     <a href="login.php?logout=1" class="btn btn-warning btn-lg" role="button">登出</a>
                     <a href="cart.php" class="btn btn-success btn-lg" role="button">購物車</a>
                     <a href="secret.php" class="btn btn-primary btn-lg" role="button">會員專用頁</a>  
-                    <?php endif; ?>
-                    
+                    <?php endif; ?> 
                 </ul>
-                
-                
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
+            </div>
+        </div>
     </nav>
     
-
 
     <div class="container" >
         <div class="row" >
@@ -155,10 +149,9 @@ if(isset($_POST['mod'])){
                         <ul class="list-group list-group">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="thumbnail">
-                                <img src="<?= $row_item["img"]?>" alt="Lights" width="180px" height="180px">
-                                </div>
                                 
+                                <img id="imgtab" src="<?= $row_item["img"]?>" alt="Lights">
+                                 
                             </div>
                             <div class="col-md-6">
                                 <form method="post" action="product_item.php?pid=<?= $item?>">
@@ -175,7 +168,7 @@ if(isset($_POST['mod'])){
                                     <?php else:?>
                                         <!-- 是否加入購物車 -->
                                         <p>購買數量：<input id="buynumber" name="buynumber" type="number" value="1" min="1"  max="9999"></p><br><br><br>
-                                        <button type="submit" class="btn btn-default btn-lg" name="cartok" ><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 加入購物車</button>
+                                        <button type="submit" class="btn btn-default btn-lg" name="cartok" ><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" style="color:black"></span> 加入購物車</button>
                                             <a href="index.php" class="btn btn-primary btn-lg" role="button">返回</a>
                                     <?php endif?>
                                     </div>
@@ -189,8 +182,16 @@ if(isset($_POST['mod'])){
             <div class="col-sm-2" >  
         </div>       
     </div>  
-  
-    
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+       
+       $('#imgtab').on('click', function(e) {
+            $(this).toggleClass('fullSize');
+        });
+
+
+    </script>
 </body>
 </html>
 

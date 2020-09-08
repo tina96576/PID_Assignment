@@ -1,0 +1,50 @@
+html,body{
+    height:100%;
+}
+body{
+    background-image: url("./image/cover/background3.jpeg");
+    background-repeat:no-repeat;
+    background-size:cover;      
+    background-attachment:fixed;
+    display:flex;
+    justify-content:center;
+    align-items:center; 
+
+}
+img{
+    max-width:100px;
+    padding:10px;
+}
+
+
+form .form-control{
+    width:300px;
+}
+
+form h2{
+    margin-top:20px;
+    margin-bottom:30px;
+    padding:20px;
+}
+
+#col6{
+  width:700px;
+  height:800px;
+  background-color:rgb(250, 240, 230,0.5);
+  
+  border-radius: 10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;  
+}
+
+#col6-2{
+    width:700px;
+    height:800px;
+    background-color:rgb(245, 245, 220,0.5);
+    
+    border-radius: 10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;  
+  }

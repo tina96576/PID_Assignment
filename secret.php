@@ -18,7 +18,6 @@ require("conn.php");
 $sqlStatement_cartlist=<<<sql
 SELECT m.mid,name, pname,price, quantity,(price*quantity) as tq,img,btime FROM buy as c JOIN member as m on c.mid=m.mid JOIN product as p on p.pid=c.pid where m.mid=$smid
 sql;
-
 $result_cartlist=mysqli_query($link,$sqlStatement_cartlist);
 $total=0;
 
@@ -29,7 +28,7 @@ $total=0;
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Lab</title>
+    <title>Snack</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -62,13 +61,12 @@ $total=0;
 </style>
 <body>
     <nav class="navbar navbar-default">
-        <p style="text-align:right; position: relative; margin:5px;">Hello! <?= $sname;?> &nbsp &nbsp</p>
+        <p style="text-align:right; position: relative; margin:5px; font-size:18px;">Hello! <?= $sname;?> &nbsp &nbsp</p>
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand">Snack</a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <?php if($sname=="Guest"):?>
@@ -78,8 +76,8 @@ $total=0;
                     <?php endif; ?>
                     <a href="index.php" class="btn btn-info btn-lg" role="button">回首頁</a>  
                 </ul> 
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
+            </div>
+        </div>
     </nav>
     
     <div class="container" >
@@ -120,6 +118,9 @@ $total=0;
             </div>  
         </div>     
     </div>  
+
+
+
 </body>
 </html>
 

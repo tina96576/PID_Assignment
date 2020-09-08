@@ -72,6 +72,12 @@ function buy(){//結帳
         font-style: oblique;
         padding-top:-10px;
     }
+
+    body{
+        background-image: url("./image/cover/background3.jpeg");
+        background-repeat:no-repeat;
+        background-size:cover;      
+    }
     
 </style>
 <body>

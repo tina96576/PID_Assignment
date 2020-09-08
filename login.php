@@ -58,47 +58,73 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="css/style1.css" rel="stylesheet">
 </head>
 
-<body>
-    <div class="container">
-        <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <h1>登入</h1>
-            <form method="post" action="login.php">
-                <div class="form-group">
-                    <label>使用者名稱</label>
-                    <input type="text" class="form-control" name="txtUserName"  aria-describedby="emailHelp" placeholder="請輸入使用者名稱" required="required">   
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">密碼</label>
-                    <input type="password" id="password" class="form-control" name="txtPassword" required="required" placeholder="密碼長度在6-30字元內，至少包含數字大小寫英文字母" required="required" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$">
-                    <input type="checkbox" onclick="showpwd()">顯示<br><br>
-                </div>
+<style type="text/css">
+  body{
+    background-image: url("./image/cover/background3.jpeg");
+    background-repeat:no-repeat;
+    background-size:cover;      
+    background-attachment:fixed;
+    display:flex;
+    justify-content:center;
+    align-items:center; 
+  }
+</style>
 
-                <div class="row-md-6" >
-                    <button type="submit" class="btn btn-default btn-lg" name="btnOK" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 登入</button>
-                    <button type="reset" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 取消</button>
-                    <button type="button" class="btn btn-default btn-lg" > <a href="index.php" class="glyphicon glyphicon-home" style="text-decoration:none;" aria-hidden="true">回首頁</a></button>     
-                </div>   
-            </form>
+
+<body>
+
+<div>
+        <div class="row">
+            <div class="login"> 
+                    <div class="col-sm-8" id="col5">
+                        <h2>會員登入</h2>
+                        <form class="form-inline" method="post" role="form">
+                         
+                            <div class="group">
+                                <label for="user_id">使用者名稱:</label>
+                                <input type="text" class="form-control" name="txtUserName" id="user_id" placeholder="請輸入帳號" required="required">
+                            </div>
+                            <div class="group">
+                                <label for="user_password">密碼:</label>
+                                <input type="password" class="form-control" id="password" name="txtPassword" required="required" placeholder="密碼長度在6-30字元內，至少包含數字大小寫英文字母" required="required" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$">
+                                <br>
+                                <input type="checkbox" onclick="showpwd()">
+                                <label for="password_show">顯示</label>
+                            </div>
+                            
+                            <div class="btn-group">
+
+                                <button type="submit" class="btn" name="btnOK" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 登入</button>
+                            </div>  
+                            <div class="btn-group">
+                                <button type="button" class="btn" > <a href="index.php" class="glyphicon glyphicon-home" style="text-decoration:none; color:white;" >回首頁</a></button>   
+                            </div> 
+
+                        </form>
+                    </div>
+
+                   
+
+            </div>
+
         </div>
-        <div class="col-md-3"></div>
-        </div>
-    </div>
+</div>
     
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>
         function showpwd() {
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
-            }else {
-                x.type = "password";
-            }
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
         }
     </script>
 </body>
+
 </html>

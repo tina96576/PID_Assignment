@@ -69,39 +69,33 @@ function processFile($objFile) {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link href="css/style3.css" rel="stylesheet">
+<body>
 </head>
 <style>
-img{
-  max-width:100px;
-  padding:10px;
-}
-
-.navbar-brand{
-        
-        font-family: Tillana, handwriting;
-        font-size: 40px;
-        font-weight: bold;
-        font-style: oblique;
-        padding-top:-10px;
-       
-
+    body{
+        background-image: url("./image/cover/background3.jpeg");
+        background-repeat:no-repeat;
+        background-size:cover;      
+        background-attachment:fixed;
+        display:flex;
+        justify-content:center;
+        align-items:center; 
     }
-
-
 </style>
-<body>
 
 
   
 
 <div class="container">
     <div class="col-sm-3" ></div>
-    <div class="col-sm-6" >
-    <h2 style="text-align:center;">修改產品</h2>
+    <div class="col-sm-6" id="col6-2">
+   
 
     <form method="post" action="" enctype="multipart/form-data">
+        <h2 style="text-align:center;">修改商品</h2>
         <div class="form-group">
-        <label for="text1">產品名稱</label>
+        <label for="text1">商品名稱</label>
         <input type="text" class="form-control" id="text2"  name="text1" value=<?=$row['pname']?>>
         </div>
         
@@ -123,15 +117,13 @@ img{
         <input type="number" class="form-control" id="text3" name="text3" value=<?=$row['cquity']?> min="0" max="99999">
         </div>
         <div class="form-group">
-        <label for="textarea" class="col-4 col-form-label" >產品介紹</label> 
+        <label for="textarea" class="col-4 col-form-label" >商品介紹</label> 
         <div class="col-8">
         <textarea id="textarea" name="textarea" class="form-control" value=""><?=$row['descript']?></textarea>
         </div>
         </div> 
     
         <label for="text4">上傳圖檔
-        
-      
         <input type='file' onchange="readURL(this);" id="file1" name="file1" accept="image/*"/>
         <img id="blah" src="<?=$row['img']?>" alt="your image" />
         </label>   

@@ -38,7 +38,6 @@
 #col1 .list-group .btn-group .btn1{
     font-size: 20px;
     border-radius: 20px;
-    border: none;
     background-color: #6ab4fe;
     width: 300px;
     padding: 10px 0;
@@ -47,6 +46,7 @@
     padding-right:30px;
     padding-left:30px;
     text-decoration:none; 
+
 }
 
 
